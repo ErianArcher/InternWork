@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MonitorMapper">
+
+	<resultMap id="BaseResultMap"
+		type="com.admin.entity.MonitorBean">
+		<id column="MOR_ID" property="morId" jdbcType="INTEGER" />
+		<id column="CLASS_NAME" property="className" jdbcType="VARCHAR" />
+		<id column="JSON_STRING" property="jsonString" jdbcType="VARCHAR" />
+		<id column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<id column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+		<id column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+		<id column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+		<id column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<id column="STS_CD" property="stsCd" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- 列表 -->
+	<select id="findMonitorListWithPage" parameterType="page" resultType="pd">
+		select 
+				*
+		from mor_monitor_result 
+		where
+			1 = 1
+		and STS_CD	= 'A'
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="saveMonitor" parameterType="pd">
+		insert into mor_monitor_result (
+			CLASS_NAME,
+			JSON_STRING,
+			CREATE_DATE,
+			CREATE_BY,
+			UPDATE_DATE,
+			UPDATE_BY,
+			REMARK,
+			STS_CD
+		) values (
+			#{className},
+			#{jsonString},
+			#{createDate},
+			#{createBy},
+			#{updateDate},
+			#{updateBy},
+			#{remark},
+			#{stsCd}
+		)
+	</insert>
+
+	<!-- 修改 -->
+	<update id="updateMonitor" parameterType="pd">
+		update  mor_monitor_result
+			set CLASS_NAME			= #{className},
+				JSON_STRING			= #{jsonString},
+				CREATE_DATE 		= #{createDate},
+				CREATE_BY			= #{createBy},
+				UPDATE_DATE 		= #{updateDate},
+				UPDATE_BY 			= #{updateBy},
+				REMARK	 			= #{remark},
+				STS_CD	 			= #{stsCd}
+			where 
+				MOR_ID = #{morId}
+	</update>
+	
+	<!-- 删除 -->
+	<update id="deleteMonitor" parameterType="pd">
+		update  mor_monitor_result
+			set 
+				STS_CD	= 'D'
+			where 
+				MOR_ID = #{morId}
+	</update>
+	
+	<!-- 通过id获取数据 -->
+	<select id="findMonitorById" parameterType="pd" resultType="pd">
+		select 
+			*
+		from 
+			mor_monitor_result
+		where 
+			MOR_ID = #{morId}
+		and STS_CD	= 'A'
+	</select>
+	
+	
+</mapper>

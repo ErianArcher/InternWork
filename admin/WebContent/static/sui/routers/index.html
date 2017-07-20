@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="../css/sm.css">
+    <link rel="stylesheet" href="../css/sm-extend.css">
+    <link rel="stylesheet" href="../css/demos.css">
+    <script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/zepto.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/sm.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/sm-extend.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+</head>
+<body>
+<div class="page page-current" id='routers-index'>
+    <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left back">
+            <span class="icon icon-left"></span>
+            返回
+        </a>
+        <h1 class="title">路由 Demo 页面 A</h1>
+    </header>
+    <div class="content">
+        <div class="content-padded">
+            <ul>
+                <li>
+                    <a href="step2.html">路由 Demo 页面 B</a>
+                </li>
+                <li>
+                    <a href="#routers-index-inner-1">页面 A 内联 page 1</a>
+                </li>
+                <li>
+                    <a href="../routers">当前页面（不做任何处理）</a>
+                </li>
+                <li>
+                    <a href="cache.html">测试缓存</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content-block-title">默认下面这些协议的链接不使用路由功能</div>
+        <div class="content-padded">
+            <ul>
+                <li>
+                    <a href="tel:10086">电话 tel:</a>
+                </li>
+                <li>
+                    <a href="mailto:xx@yy.com">mailto:xx@yy.com;</a>
+                </li>
+                <li>
+                    <a href="javascript:;">javascript:;</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content-block-title">使用了自定义过滤器，下面链接不会使用路由功能</div>
+        <div class="content-padded disable-router">
+            <ul>
+                <li>
+                    <a href="step2.html">路由 Demo 页面 B</a>
+                </li>
+                <li>
+                    <a href="../demos.html">Demo 首页</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="page" id="routers-index-inner-1">
+    <p>页面 A 内联 page 1</p>
+    <p>
+        <a href="#routers-index-inner-2">页面 A 内联 page 2</a>
+    </p>
+</div>
+
+<div class="page" id="routers-index-inner-2">
+    <p>页面 A 内联 page 2</p>
+</div>
+
+
+</body>
+</html>
