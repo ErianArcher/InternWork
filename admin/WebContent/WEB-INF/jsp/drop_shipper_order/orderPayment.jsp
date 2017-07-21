@@ -388,7 +388,7 @@ div#orderDetails {
 												});
 								$('#addressTable tbody tr')
 										.append(
-												'<td><a href="" id="deleteAddress" class="delete">删除</button></td>');
+												'<td><a href="" id="deleteAddress" class="delete">删除</a></td>');
 								$('#addAddress').css('display', 'none');
 								$('#operateAddressModalBox').modal('hide');
 							}
