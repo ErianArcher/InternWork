@@ -443,6 +443,7 @@ div#commodityEntry {
 			url : "",
 			dataType : "json",
 			data : {
+				order: {strId:"12654388"},
 				address : getAddress(),
 				orderItems : getCommodities()
 			},
