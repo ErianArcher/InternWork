@@ -8,5 +8,6 @@
 </head>
 <body>
 	<a href="www.google.com">百度</a>
+	<a href="">Fake Link</a>
 </body>
 </html>
