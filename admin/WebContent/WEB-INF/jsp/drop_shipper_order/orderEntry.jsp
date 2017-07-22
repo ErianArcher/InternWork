@@ -276,7 +276,7 @@ div#commodityEntry {
 					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 					<button type="button" id="boxConfirmBtn" class="btn btn-primary">保存</button>
 				</div>
-
+				
 			</div>
 		</div>
 </body>
@@ -429,8 +429,8 @@ div#commodityEntry {
 		var json = [];
 		for (var i = 1; i <= commodityCount; i++) {
 			json.push({
-				commoditySKU : $('#commoditySKU' + i).text(),
-				commodityQuantity : $('#commodityQuantity' + i).text()
+				skuNo : $('#commoditySKU' + i).text(),
+				qty : $('#commodityQuantity' + i).text()
 			});
 			//console.log({commoditySKU:$('#commoditySKU'+i).text(), commodityQuantity:$('#commodityQuantity'+i).text()});
 		}
@@ -444,7 +444,7 @@ div#commodityEntry {
 			dataType : "json",
 			data : {
 				address : getAddress(),
-				commodity : getCommodities()
+				orderItems : getCommodities()
 			},
 			success : function(msg) {
 				console.log(msg);
@@ -453,6 +453,6 @@ div#commodityEntry {
 				console.log(msg);
 			}
 		});
-	})
+	});
 </script>
 </html>
