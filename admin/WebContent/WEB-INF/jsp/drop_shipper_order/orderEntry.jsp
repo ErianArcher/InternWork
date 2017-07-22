@@ -369,8 +369,8 @@ div#commodityEntry {
 			.on(
 					'click',
 					function() {
-						var sku = $('#commoditySKU').val();
-						var quantity = $('#commodityQuantity').val();
+						var skuNo = $('#commoditySKU').val();
+						var qty = $('#commodityQuantity').val();
 						if (sku == "" || sku == undefined || sku == null) {
 							if (quantity == "" || quantity == undefined
 									|| quantity == null) {
@@ -444,7 +444,7 @@ div#commodityEntry {
 			dataType : "json",
 			data : {
 				order: {strId:"12654388"},
-				address : getAddress(),
+				shaAddress : getAddress(),
 				orderItems : getCommodities()
 			},
 			success : function(msg) {
