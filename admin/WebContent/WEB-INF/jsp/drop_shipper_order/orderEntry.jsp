@@ -443,8 +443,8 @@ div#commodityEntry {
 			url : "",
 			dataType : "json",
 			data : {
-				order: {strId:"12654388"},
-				shaAddress : getAddress(),
+				stoStoreOrder: {strId:"12654388"},
+				shaShippingAddress : getAddress(),
 				orderItems : getCommodities()
 			},
 			success : function(msg) {
