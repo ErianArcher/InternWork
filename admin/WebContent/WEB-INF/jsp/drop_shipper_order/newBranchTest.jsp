@@ -8,6 +8,8 @@
 </head>
 <body>
 	<a href="www.google.com">百度</a>
+	<a href="">Fake Link</a>
 	<label>fork that</label>
+	<label>Wang zong's edition</label>
 </body>
 </html>
