@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<a href="www.google.com">百度</a>
 </body>
 </html>
