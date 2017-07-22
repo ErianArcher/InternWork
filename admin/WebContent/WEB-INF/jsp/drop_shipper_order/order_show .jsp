@@ -178,7 +178,7 @@ div#orderDetails {
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>monitor/findMonitorView.do?viewName=monitor/order_edit';
+			 diag.URL = '<%=basePath%>monitor/findMonitorView.do?viewName=monitor/Address_Edit';
 			 diag.Width = 600;
 			 diag.Height = 465;
 			 diag.CancelEvent = function(){ //关闭事件
