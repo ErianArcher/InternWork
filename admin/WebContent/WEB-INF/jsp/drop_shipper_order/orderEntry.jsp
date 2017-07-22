@@ -369,8 +369,8 @@ div#commodityEntry {
 			.on(
 					'click',
 					function() {
-						var sku = $('#commoditySKU').val();
-						var quantity = $('#commodityQuantity').val();
+						var skuNo = $('#commoditySKU').val();
+						var qty = $('#commodityQuantity').val();
 						if (sku == "" || sku == undefined || sku == null) {
 							if (quantity == "" || quantity == undefined
 									|| quantity == null) {
@@ -443,8 +443,8 @@ div#commodityEntry {
 			url : "",
 			dataType : "json",
 			data : {
-				order: {strId:"12654388"},
-				address : getAddress(),
+				stoStoreOrder: {strId:"12654388"},
+				shaShippingAddress : getAddress(),
 				orderItems : getCommodities()
 			},
 			success : function(msg) {
