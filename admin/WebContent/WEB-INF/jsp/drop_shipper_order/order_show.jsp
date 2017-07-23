@@ -89,8 +89,9 @@ div#orderDetails {
 											</c:if>
 											<div>
 											<c:if test="${QX.edit == 1 }">
-											<a style="cursor:pointer;" title="编辑" onclick="edit('${var.STO_ID}');">edit</a>
-											
+											<a style="cursor:pointer;" title="编辑" onclick="edit('${saoSaleOrder.saoId}');">edit</a>
+											</c:if>
+											<c:if test="${QX.del == 1 }">											
 											</c:if>
 										</div>
 								
