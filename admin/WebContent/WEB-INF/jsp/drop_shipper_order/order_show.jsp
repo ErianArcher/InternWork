@@ -10,8 +10,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
-<base href="<%=basePath%>"><!-- jsp文件头和头部 -->
+<base href="<%=basePath%>">+"orders/addOriginalOrderAndAddressAndIterms"<!-- jsp文件头和头部 -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -91,7 +90,8 @@ div#orderDetails {
 											<c:if test="${QX.edit == 1 }">
 											<a style="cursor:pointer;" title="编辑" onclick="edit('${saoSaleOrder.saoId}');">edit</a>
 											</c:if>
-											<c:if test="${QX.del == 1 }">											
+											<c:if test="${QX.del == 1 }">
+
 											</c:if>
 										</div>
 								
@@ -121,7 +121,8 @@ div#orderDetails {
 				
 				<div id="postage">
 					<div style="margin-left:10px;">
-						<label>邮费：</label>
+						<label >邮费：</label>
+						<label id="shipping_amount"></label>
 					</div>	
 				</div>
 				
@@ -162,12 +163,12 @@ div#orderDetails {
 		</form>
 	</div>
 
-		<!-- 引入 -->
-		<script src="static/js/ace-elements.min.js"></script>
-		<script src="static/js/ace.min.js"></script>
-		<!-- 引入 -->
+		
 
-		<script type="text/javascript">
+		
+
+</body>
+<script type="text/javascript">
 		
 		$(top.hangge());		
 
@@ -177,7 +178,7 @@ div#orderDetails {
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>monitor/findMonitorView.do?viewName=monitor/order_edit';
+			 diag.URL = '<%=basePath%>monitor/findMonitorView.do?viewName=drop_shipper_order/Address_Edit';
 			 diag.Width = 600;
 			 diag.Height = 465;
 			 diag.CancelEvent = function(){ //关闭事件
@@ -188,9 +189,53 @@ div#orderDetails {
 			 };
 			 diag.show();
 		}
+		
+		function sendRequestValues(Id)
+		{
+		  var ele;
+		  ele=Id;
+		  ele.send(Id);
+
+		  $.ajax({
+		    url:"",
+		    type:"POST",
+		    data:{id:$("#saoId").val()},
+		    dataType:"json",
+		    contentType : 'application/json',
+		    success:function(data){
+		       //here is the contect of function
+		        $.dialog.confirm('确定提交？', function(){
+		                        window.open.href=getRootPath() + "" +Id;
+		                        })     
+		     }
+		    		 
+			});  			
+		}
+		
+		function getFreCompany(){
+			var val=$('input:radio[name="sendMethod"]:checked').val();
+			
+			return val;	
+		}
+		$('input:radio[name="sendMethod"]').on('click', function() {
+			$.ajax({
+				type : "post",
+				url: '<%=basePath%>'+"orders/calculateFreight",
+				dataType : "json",
+				data : JSON.stringify({
+					saoId : '${saoSalesOrder.saoId}',
+					freCompany: getFreCompany()
+				}),
+				success : function(data) {
+					console.log(data);
+				},
+				error : function(data) {
+					console.log(data);
+				}
+			});
+		});
+		
 
 		</script>
-
-</body>
-
 </html>
+
