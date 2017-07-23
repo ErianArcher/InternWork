@@ -63,6 +63,18 @@ div#commodityEntry {
 <body>
 	<div class="container">
 		<div>
+			<!--  Additional Information -->
+			<div id="additionalInfoBlock" class="form-group">
+				<label for="name">商家ID(strID)</label>
+				<input type="text" id="strIDInput" class="form-control">
+				<label for="name">快递选择</label>
+				<select class="form-control" id="">
+					<option>顺丰</option>
+					<option>圆通</option>
+					<option>中通</option>
+				</select>
+			</div> <!-- end of input-group-->
+			
 			<div id="addressBlock" class="container">
 				<div id="receiveAddress" class="table-responsive">
 					<table class="table" id="addressTable">
@@ -286,7 +298,6 @@ div#commodityEntry {
 				</div>
 				
 			</div>
-		</div>
 		</div>
 </body>
 
