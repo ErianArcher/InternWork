@@ -57,8 +57,8 @@
 								<button type="button" class="btn btn-default" onclick="payButton(${saoSaleOrder.saoId})"></button>
 								</td>
 								</tr>
-					</c:forEach>
-				</c:when>
+							</c:forEach>
+						</c:when>
 			</c:choose>
 					</tbody>
 				</table>
