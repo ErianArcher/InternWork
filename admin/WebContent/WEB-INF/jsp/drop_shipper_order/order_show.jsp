@@ -89,7 +89,6 @@ div#orderDetails {
 											</c:if>
 											<div>
 											<c:if test="${QX.edit == 1 }">
-<<<<<<< HEAD
 											<a style="cursor:pointer;" title="编辑" onclick="edit('${var.STO_ID}');">编辑</a>
 											</c:if>
 											<c:if test="${QX.del == 1 }">
@@ -217,111 +216,4 @@ div#orderDetails {
 
 		</script>
 </html>
-=======
-											<a style="cursor:pointer;" title="编辑" onclick="edit('${var.STO_ID}');">edit</a>
-											<c:if>
-											<c:if test="${QX.del == 1 }">
-											
-											</c:if>
-										</div>
-								
-						</th>
-					</tbody>
-				</table>
-				
-			</div>
 
-			<div id="orderDetails">
-				<div id="commodityList">
-					<table class="table table-bordered">
-						<caption>商品清单:</caption>
-						<thead>
-							<tr>
-								<th>商品SUK</th>
-								<th>商品图片</th>
-								<th>商品名字</th>
-								<th>商品单价</th>
-								<th>商品数量</th>
-							</tr>
-						</thead>
-						<tbody>         					
-						</tbody>
-					</table>
-				</div>
-				
-				<div id="postage">
-					<div style="margin-left:10px;">
-						<label>邮费：</label>
-					</div>	
-				</div>
-				
-				<div id="totalPrice">
-					<div style="margin-left:10px">
-						<label>总价：</label>
-					</div>
-				</div>
-			</div>
-
-			<div id="remark">
-				<div class="form-group">
-					<label for="customerRemark">买家留言：</label>
-					<textarea class="form-control" id="customerRemark" placeholder="可选" rows="1"></textarea>
-				</div>
-			</div>
-
-			<div id="send">
-				<div class="sendMethod">
-					<div>
-						<label>运送方式：</label>						
-						<label class="checkbox-inline">
-							<input name="sendMethod" id="shunfeng" value="shunfeng" type="radio">顺丰
-						</label> 
-						<label class="checkbox-inline">
-							<input name="sendMethod" id="yuntong" value="yuntong" type="radio">圆通
-						</label>
-						<label class="checkbox-inline">
-							<input name="sendMethod" id="zhongtong" value="zhongtong" type="radio">中通
-						</label>
-					</div>
-				</div>
-				
-				<div class="sendButton">
-					<button type="button" class="btn btn-default">提交订单</button>
-				</div>
-			</div>
-		</form>
-	</div>
-
-		<!-- 引入 -->
-		<script src="static/js/ace-elements.min.js"></script>
-		<script src="static/js/ace.min.js"></script>
-		<!-- 引入 -->
-
-		<script type="text/javascript">
-		
-		$(top.hangge());		
-
-		//修改
-		function edit(Id){
-			 top.jzts();
-			 var diag = new top.Dialog();
-			 diag.Drag=true;
-			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>monitor/findMonitorView.do?viewName=monitor/order_edit';
-			 diag.Width = 600;
-			 diag.Height = 465;
-			 diag.CancelEvent = function(){ //关闭事件
-				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-					 nextPage();
-				}
-				diag.close();
-			 };
-			 diag.show();
-		}
-
-		</script>
-
-</body>
-
-</html>
->>>>>>> refs/remotes/origin/order_detail_payment
