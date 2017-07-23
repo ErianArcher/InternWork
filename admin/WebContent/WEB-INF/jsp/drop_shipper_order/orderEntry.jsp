@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +23,8 @@
 	rel="stylesheet">
 
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+<base href="<%=basePath%>">
 
 <style type="text/css">
 div#commodityEntry {
@@ -441,13 +449,13 @@ div#commodityEntry {
 	$('#submitOrder').on('click', function() {
 		$.ajax({
 			type : "post",
-			url : "",
+			url : '<%=basePath%>'+"orders/addOriginalOrderAndAddressAndItems",
 			dataType : "json",
-			data : {
+			data : JSON.stringify({
 				stoStoreOrder: {strId:"12654388"},
 				shaShippingAddress : getAddress(),
 				orderItems : getCommodities()
-			},
+			}),
 			success : function(msg) {
 				console.log(msg);
 			},
