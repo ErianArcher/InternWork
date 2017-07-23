@@ -10,8 +10,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
-<base href="<%=basePath%>"><!-- jsp文件头和头部 -->
+<base href="<%=basePath%>">+"orders/addOriginalOrderAndAddressAndIterms"<!-- jsp文件头和头部 -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -92,7 +91,7 @@ div#orderDetails {
 											<a style="cursor:pointer;" title="编辑" onclick="edit('${saoSaleOrder.saoId}');">edit</a>
 											</c:if>
 											<c:if test="${QX.del == 1 }">
-									
+
 											</c:if>
 										</div>
 								
@@ -190,6 +189,29 @@ div#orderDetails {
 			 };
 			 diag.show();
 		}
+		
+		function sendRequestValues(Id)
+		{
+		  var ele;
+		  ele=Id;
+		  ele.send(Id);
+
+		  $.ajax({
+		    url:"",
+		    type:"POST",
+		    data:{id:$("#saoId").val()},
+		    dataType:"json",
+		    contentType : 'application/json',
+		    success:function(data){
+		       //here is the contect of function
+		        $.dialog.confirm('确定提交？', function(){
+		                        window.open.href=getRootPath() + "" +Id;
+		                        })     
+		     }
+		    		 
+			});  			
+		}
+		
 		function getFreCompany(){
 			var val=$('input:radio[name="sendMethod"]:checked').val();
 			
