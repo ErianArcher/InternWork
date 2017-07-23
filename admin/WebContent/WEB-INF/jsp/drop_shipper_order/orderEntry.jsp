@@ -448,7 +448,7 @@ div#commodityEntry {
 	$('#submitOrder').on('click', function() {
 		$.ajax({
 			type : "post",
-			url : <%=basePath%>+"orders/addOriginalOrderAndAddressAndItems",
+			url : '<%=basePath%>'+"orders/addOriginalOrderAndAddressAndItems",
 			dataType : "json",
 			data : JSON.stringify({
 				stoStoreOrder: {strId:"12654388"},
