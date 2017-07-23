@@ -11,7 +11,7 @@
 <html>
 <head>
 
-<base href="<%=basePath%>"><!-- jsp文件头和头部 -->
+<base href="<%=basePath%>">+"orders/addOriginalOrderAndAddressAndIterms"<!-- jsp文件头和头部 -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -89,7 +89,7 @@ div#orderDetails {
 											</c:if>
 											<div>
 											<c:if test="${QX.edit == 1 }">
-											<a style="cursor:pointer;" title="编辑" onclick="edit('${var.STO_ID}');">edit</a>
+											<a style="cursor:pointer;" title="编辑" onclick="edit('${saoSaleOrder.saoId}');">edit</a>
 											</c:if>
 											<c:if test="${QX.del == 1 }">
 											
@@ -157,7 +157,7 @@ div#orderDetails {
 				</div>
 				
 				<div class="sendButton">
-					<button type="button" class="btn btn-default">提交订单</button>
+					<button type="button" class="btn btn-default" onclick="sendRequestValues('${saoSaleOrder.saoId}')">提交订单</button>
 				</div>
 			</div>
 		</form>
@@ -178,8 +178,8 @@ div#orderDetails {
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>monitor/findMonitorView.do?viewName=monitor/Address_Edit';
-			 diag.Width = 600;
+			 diag.URL = '<%=basePath%>monitor/findMonitorView.do?viewName=drop_shipper_order/Address_Edit';
+			 diag.Width = 600; 
 			 diag.Height = 465;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
@@ -189,7 +189,28 @@ div#orderDetails {
 			 };
 			 diag.show();
 		}
+		
+		function sendRequestValues(Id)
+		{
+		  var ele;
+		  ele=Id;
+		  ele.send(Id);
 
+		  $.ajax({
+		    url:"",
+		    type:"POST",
+		    data:{id:$("#saoId").val()},
+		    dataType:"json",
+		    contentType : 'application/json',
+		    success:function(data){
+		       //here is the contect of function
+		        $.dialog.confirm('确定提交？', function(){
+		                        window.open.href=getRootPath() + "" +Id;
+		                        })     
+		     }
+		    		 
+			});  			
+		}
 		</script>
 
 </body>
