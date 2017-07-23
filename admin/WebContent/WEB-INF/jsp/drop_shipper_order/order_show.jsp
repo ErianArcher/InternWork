@@ -89,10 +89,10 @@ div#orderDetails {
 											</c:if>
 											<div>
 											<c:if test="${QX.edit == 1 }">
-											<a style="cursor:pointer;" title="编辑" onclick="edit('${var.STO_ID}');">edit</a>
+											<a style="cursor:pointer;" title="编辑" onclick="edit('${var.STO_ID}');">编辑</a>
 											</c:if>
 											<c:if test="${QX.del == 1 }">
-											
+									
 											</c:if>
 										</div>
 								
@@ -122,7 +122,8 @@ div#orderDetails {
 				
 				<div id="postage">
 					<div style="margin-left:10px;">
-						<label>邮费：</label>
+						<label >邮费：</label>
+						<label id="shipping_amount"></label>
 					</div>	
 				</div>
 				
@@ -163,12 +164,12 @@ div#orderDetails {
 		</form>
 	</div>
 
-		<!-- 引入 -->
-		<script src="static/js/ace-elements.min.js"></script>
-		<script src="static/js/ace.min.js"></script>
-		<!-- 引入 -->
+		
 
-		<script type="text/javascript">
+		
+
+</body>
+<script type="text/javascript">
 		
 		$(top.hangge());		
 
@@ -178,7 +179,7 @@ div#orderDetails {
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>monitor/findMonitorView.do?viewName=monitor/order_edit';
+			 diag.URL = '<%=basePath%>monitor/findMonitorView.do?viewName=drop_shipper_order/Address_Edit';
 			 diag.Width = 600;
 			 diag.Height = 465;
 			 diag.CancelEvent = function(){ //关闭事件
@@ -189,9 +190,29 @@ div#orderDetails {
 			 };
 			 diag.show();
 		}
+		function getFreCompany(){
+			var val=$('input:radio[name="sendMethod"]:checked').val();
+			
+			return val;	
+		}
+		$('input:radio[name="sendMethod"]').on('click', function() {
+			$.ajax({
+				type : "post",
+				url: '<%=basePath%>'+"orders/calculateFreight",
+				dataType : "json",
+				data : JSON.stringify({
+					saoId : '${saoSalesOrder.saoId}',
+					freCompany: getFreCompany()
+				}),
+				success : function(data) {
+					console.log(data);
+				},
+				error : function(data) {
+					console.log(data);
+				}
+			});
+		});
+		
 
 		</script>
-
-</body>
-
 </html>
