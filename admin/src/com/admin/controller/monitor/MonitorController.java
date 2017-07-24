@@ -2,12 +2,14 @@ package com.admin.controller.monitor;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -136,6 +138,36 @@ public class MonitorController extends BaseController {
 		} catch (Exception e) {
 			logger.error("查询模拟结果列表异常", e);
 		}
+		return modelAndView;
+	}
+	
+	/*
+	 * Test request
+	 */
+	@RequestMapping(value="/testRequest")
+	@ResponseBody
+	public ModelAndView testRequest() {
+		/*
+		ModelAndView modelAndView = new ModelAndView();
+		PageData pageData = this.getPageData();
+		try {
+			String msg = (String) pageData.get("msg");
+			modelAndView.addObject("msg", msg);
+			modelAndView.setViewName("drop_shipper_order/orderPayment");
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("msg error", e);
+		}
+		return modelAndView;
+		*/
+		ModelAndView modelAndView = new ModelAndView();
+		PageData pageData = this.getPageData();
+		String viewName = (String)pageData.get("viewName");
+		logger.debug("viewName=" + viewName);
+		if (StringUtils.isEmpty(viewName)) {
+			viewName = "monitor/monitorList";
+		}
+		modelAndView.setViewName(viewName);
 		return modelAndView;
 	}
 }
