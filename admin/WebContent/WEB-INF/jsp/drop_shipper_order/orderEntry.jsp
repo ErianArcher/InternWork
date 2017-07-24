@@ -430,7 +430,7 @@ div#commodityEntry {
 		var address = {};
 		$.each(ele, function(index, value) {
 			address[value] = $('#'+value).attr('value');
-			console.log(address[value]);
+			//console.log(address[value]);
 		});
 		return address;
 	}
@@ -452,6 +452,7 @@ div#commodityEntry {
 			shaShippingAddress : getAddress(),
 			orderItems : getCommodities()
 		});
+		console.log(orderData); // check data format
 		$.ajax({
 			type : "post",
 			url : '<%=basePath%>'+"orders/addOriginalOrderAndAddressAndItems",
