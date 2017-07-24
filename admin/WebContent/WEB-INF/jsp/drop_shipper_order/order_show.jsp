@@ -71,27 +71,33 @@ div#orderDetails {
 						</tr>
 					</thead>
 					<tbody>
-						<th>1</th>
-						<th>2</th>
-						<th>3</th>
-						<th>4</th>
-						<th>5</th>
-						<th>6</th>
-						<th>7</th>
-						<th>8</th>
-						<th>9</th>
-						<th>10</th>
-						<th>11</th>
-						<th style="width: 30px;" class="center">
+						<tr>
+						<td>${shaShippingAddress.familyName}</td>
+						<td>${shaShippingAddress.givenNamecontactPhoneNo}</td>
+						<td>${shaShippingAddress.contactPhoneNo}</td>
+						<td>${shaShippingAddress.email}</td>
+						<td>${shaShippingAddress.countryName}</td>
+						<td>${shaShippingAddress.stateOfProvinceName}</td>
+						<td>${shaShippingAddress.cityName}</td>
+						<td>${shaShippingAddress.addressLine1}</td>
+						<td>${shaShippingAddress.postalCd}</td>
+						<td>${shaShippingAddress.countryIsoCd}</td>
+						<td>${shaShippingAddress.stateOfProvinceCd}</td>
+						<td style="width: 30px;" class="center">
+											<c:if test="${QX.edit != 1 && QX.del != 1 }">
 											<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="icon-lock" title="无权限"></i></span>
-											
+											</c:if>
 											<div>
-											
+											<c:if test="${QX.edit == 1 }">
 											<a style="cursor:pointer;" title="编辑" onclick="edit('${saoSaleOrder.saoId}');">edit</a>
+											</c:if>
+											<c:if test="${QX.del == 1 }">
 											
-											</div>
+											</c:if>
+										</div>
 								
-						</th>
+						</td>
+						</tr>
 					</tbody>
 				</table>
 				
@@ -110,21 +116,56 @@ div#orderDetails {
 								<th>商品数量</th>
 							</tr>
 						</thead>
-						<tbody>         					
+						<tbody>    
+							
+							<!-- 开始循环 -->	
+							<c:choose>
+								<c:when test="${not empty saoSaleOrderList}">
+								<c:if test="${QX.cha == 1 }">
+								<c:forEach items="${saoSaleOrderList}" var="saoSaleOrder" varStatus="vs">
+								<tr>
+								<!-- xuhao -->								
+								<td class='center' style="width: 30px;">${vs.index+1}</td>
+								<!--from tupian to shuliang -->
+								<td>${var.skuNo}</td>				
+										<td>
+										<img src="http://imgsrc.baidu.com/baike/pic/item/6a63f6246b600c338f25aa7f1a4c510fd9f9a12c.jpg" ></a>
+										</td>							
+										<td>${var.ptoId}</td>
+										<td>${var.price}</td>
+										<td>${var.qty}</td>			
+								</tr>
+						
+								</c:forEach>
+								</c:if>
+						<c:if test="${QX.cha == 0 }">
+							<tr>
+								<td colspan="100" class="center">您无权查看</td>
+							</tr>
+						</c:if>
+						</c:when>
+						<c:otherwise>
+							<tr class="main_info">
+							<td colspan="100" class="center">没有相关数据</td>
+							</tr>
+						</c:otherwise>
+						</c:choose>
+
 						</tbody>
 					</table>
 				</div>
 				
 				<div id="postage">
 					<div style="margin-left:10px;">
-						<label >邮费：</label>
-						<label id="shipping_amount"></label>
+						<label>邮费：</label>
+						<label>${saoSaleOrder.freightCost}</label>
 					</div>	
 				</div>
 				
 				<div id="totalPrice">
 					<div style="margin-left:10px">
 						<label>总价：</label>
+						<label>${saoSaleOrder.productAmount}</label>
 					</div>
 				</div>
 			</div>
@@ -132,7 +173,7 @@ div#orderDetails {
 			<div id="remark">
 				<div class="form-group">
 					<label for="customerRemark">买家留言：</label>
-					<textarea class="form-control" id="customerRemark" placeholder="可选" rows="1"></textarea>
+					<textarea class="form-control" id="customerRemark" placeholder="可选" rows="1">${saoSaleOrder.remark}</textarea>
 				</div>
 			</div>
 
@@ -174,7 +215,7 @@ div#orderDetails {
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>monitor/findMonitorView.do?viewName=drop_shipper_order/Address_Edit';
+			 diag.URL = '<%=basePath%>monitor/findMonitorView.do?viewName=drop_shipper_order/Address_Edit'+Id;
 			 diag.Width = 600;
 			 diag.Height = 465;
 			 diag.CancelEvent = function(){ //关闭事件
@@ -202,27 +243,7 @@ div#orderDetails {
 			 diag.show();
 		}
 		
-		function sendRequestValues(Id)
-		{
-		  var ele;
-		  ele=Id;
-		  ele.send(Id);
-
-		  $.ajax({
-		    url:"",
-		    type:"POST",
-		    data:{id:$("#saoId").val()},
-		    dataType:"json",
-		    contentType : 'application/json',
-		    success:function(data){
-		       //here is the contect of function
-		        $.dialog.confirm('确定提交？', function(){
-		                        window.open.href=getRootPath() + "" +Id;
-		                        })     
-		     }
-		    		 
-			});  			
-		}
+		
 		$('#submitPayment').on('click', function() {
 			$.ajax({
 				type : "post",

@@ -116,9 +116,9 @@ public class OrigianlOrderController extends BaseController{
 	public String addOriginalOrderAndAddress(@RequestBody OriginalOrderAndAddress entity){
 		OriginalOrders originalOrders=new OriginalOrders();
 		//此处要获取的，前端必须录入！！！否则可能有非空字段而导致插入失败
-		originalOrders.setStrId(entity.getOrigianlOrders().getStrId());			//重点内容，与借卖方关联，通过借卖方查看他的所有网店
-		originalOrders.setOrderId(entity.getOrigianlOrders().getOrderId());
-		originalOrders.setCreatedBy(entity.getOrigianlOrders().getCreatedBy());
+		originalOrders.setStrId(entity.getOriginalOrders().getStrId());			//重点内容，与借卖方关联，通过借卖方查看他的所有网店
+		originalOrders.setOrderId(entity.getOriginalOrders().getOrderId());
+		originalOrders.setCreatedBy(entity.getOriginalOrders().getCreatedBy());
 		Date d = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String dateNowStr = sdf.format(d);

@@ -438,7 +438,7 @@ div#commodityEntry {
 		var json = [];
 		for (var i = 1; i <= commodityCount; i++) {
 			json.push({
-				skuNo : $('#commoditySKU' + i).text(),
+				skuNO : $('#commoditySKU' + i).text(),
 				qty : $('#commodityQuantity' + i).text()
 			});
 			//console.log({commoditySKU:$('#commoditySKU'+i).text(), commodityQuantity:$('#commodityQuantity'+i).text()});
@@ -448,7 +448,7 @@ div#commodityEntry {
 	}
 	$('#submitOrder').on('click', function() {
 		var orderData = JSON.stringify({
-			stoStoreOrder: {strId:"12654388"},
+			originalOrders: {strId:"12654388", orderId:"7898465", createdBy:"Neusoft"},
 			shaShippingAddress : getAddress(),
 			orderItems : getCommodities()
 		});
@@ -458,6 +458,9 @@ div#commodityEntry {
 			url : '<%=basePath%>'+"orders/addOriginalOrderAndAddressAndItems",
 			dataType : "json",
 			data : orderData,
+			beforeSend : function(req) {
+	            req.setRequestHeader('Content-Type', 'application/json');  ///加这一行解决问题
+	        },
 			success : function(msg) {
 				windows.location.href='<%=basePath%>'+"orders/showSaoSalesOrderItems";
 			},

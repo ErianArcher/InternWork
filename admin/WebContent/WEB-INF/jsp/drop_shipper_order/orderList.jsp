@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link
 	href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet">
-	
+
 
 	<title>Order List</title>
 
@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="page-header">
 			<h3>网店${strId}的所有销售订单</h3>
 		</div>
-		
+
 		<!-- 使用后端<ArrayList>SaoSalesOrder实体类 -->
 		<div id="order_list">
 			<div id="receiveAddress" class="table-responsive">
@@ -61,15 +61,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td><label>${saoSaleOrder.customerRemark}</label></td>
 							<td>
 								<!-- 点开订单详情的按钮 -->
-								<button type="button" class="btn btn-default" onclick="detailButton(${saoSaleOrder.saoId})">/button>
-								</td>
+								<c:if test="${not empty saoSaleOrder.paymentDate}">
+									<label>已支付</label>
+								</c:if>
+								<c:otherwise>
+									<button type="button" class="btn btn-default" onclick="detailButton(${saoSaleOrder.saoId})">/button>
+								</c:otherwise>
+
+							</td>
+
 							</tr>
 						</c:forEach>
 					</c:when>
 				</c:choose>
 			</tbody>
 		</table>
-		
+
 	</div>
 </div>
 

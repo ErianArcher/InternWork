@@ -113,7 +113,7 @@
 			<if test="remark!=null">REMARK=#{remark},</if>
 			<if test="stsCd!=null">STS_CD=#{stsCd},</if>
 			<if test="manId!=null">MAN_ID=#{manId},</if>
-			<if test="warID!=null">WAR_ID=#{warId},</if>
+			<if test="warId!=null">WAR_ID=#{warId},</if>
 			<if test="syncDate!=null">SYNC_DATE=#{syncDate},</if>
 			<if test="paymentDate!=null">PAYMENT_DATE=#{paymentDate},</if>
 			<if test="pushDate!=null">PUSH_DATE=#{pushDate},</if>

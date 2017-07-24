@@ -11,14 +11,14 @@ public class OriginalOrderAndAddress implements Serializable{
 	 */
 	private static final long serialVersionUID = -2425190672850577920L;
     
-    private OriginalOrders	origianlOrders;
+    private OriginalOrders	originalOrders;
     private ShaShippingAddress shaShippingAddress;
     private List<OriginalOrderItems> orderItems;
-	public OriginalOrders getOrigianlOrders() {
-		return origianlOrders;
+	public OriginalOrders getOriginalOrders() {
+		return originalOrders;
 	}
-	public void setOrigianlOrders(OriginalOrders origianlOrders) {
-		this.origianlOrders = origianlOrders;
+	public void setOriginalOrders(OriginalOrders origianlOrders) {
+		this.originalOrders = origianlOrders;
 	}
 	public ShaShippingAddress getShaShippingAddress() {
 		return shaShippingAddress;
