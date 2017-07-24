@@ -33,20 +33,16 @@ div#commodityEntry {
 	-moz-box-shadow: 3px 3px 3px grey;
 	box-shadow: 3px 3px 3px grey;
 }
-
 .row {
 	padding: 1px;
 }
-
 .delete {
 	font-size: 14px;
 	color: blue;
 }
-
 .necessary {
 	color: red;
 }
-
 .warning {
 	float: right;
 	color: Red;
@@ -291,7 +287,7 @@ div#commodityEntry {
 
 <script type="text/javascript">
 	$(top.hangge());
-
+	var isFirstEdit = true;
 	var ele = [ 'familyName', 'givenName', 'contactPhoneNo', 'email',
 				'countryName', 'stateOrProvinceName', 'cityName',
 				'addressLine1', 'postalCd', 'countryIsoCd', 'stateOrProvinceCd' ];
@@ -304,9 +300,9 @@ div#commodityEntry {
 					'click',
 					function() {
 						var address = {};
-
 						var isIncomplete = false;// Mark if some of the inputs are not filled.
-
+						if(!isFirstEdit)
+							deleteAddr();
 						$.each(ele, function(index, value) {
 							var eleId = $('#' + origin_ele[index]);
 							var tmp = eleId.val();
@@ -322,7 +318,6 @@ div#commodityEntry {
 								address[value] = tmp;//add value to dict if the value is valid
 							}
 						});
-
 						if (isIncomplete === false) {
 							$
 									.each(
@@ -338,22 +333,29 @@ div#commodityEntry {
 											});
 							$('#addressTable tbody tr')
 									.append(
-											'<td><a href="" id="deleteAddress" class="delete">删除</a></td>');
+											'<td><a href="" id="deleteAddressBtn" class="delete">删除</a></td>');
 							$('#addressTable tbody tr')
 									.append(
-											'<td><button type="button" id="editAddress" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#operateAddressModalBox">编辑</button></td>')
+											'<td><button type="button" id="editAddress" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#operateAddressModalBox" onclick="setNonFirstEdit()">编辑</button></td>')
 							$('#addAddress').css('display', 'none');
 							$('#operateAddressModalBox').modal('hide');
 						}
 					});
-
 	//delete address button
 	$('.delete').on('click', function() {
 		$('#addAddress').css('display', 'block');
-		$(this).closest("tr").children().remove();
+		deleteAddr();
 	});
+	
+	//用于修改edit出现Bug的函数
+	function deleteAddr(){
+		$('#deleteAddressBtn').closest("tr").children().remove();
+	}
+	
+	function setNonFirstEdit(){
+		isFirstEdit = false;
+	}
 	//edit address button
-
 	// add focus action and blur action to the input in modal box
 	// focus action: remove necessary hint
 	// blur action: check if the necessary field is filled; if not, then hint
@@ -371,7 +373,6 @@ div#commodityEntry {
 			}
 		});
 	});
-
 	var commodityCount = 0;
 	$('#commodityConfirmBtn')
 			.on(
@@ -383,7 +384,6 @@ div#commodityEntry {
 							if (qty == "" || qty == undefined
 									|| qty == null) {
 								shake('commoditySKU');
-
 							} else {
 								// warning sku
 								shake('commoditySKU');
@@ -419,7 +419,6 @@ div#commodityEntry {
 							}
 						}
 					});
-
 	function shake(id) {
 		$('#' + id).effect('shake', {
 			distance : 5
