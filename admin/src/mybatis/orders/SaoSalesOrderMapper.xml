@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SaoSalesOrderMapper">
+	<resultMap type="com.admin.entity.orders.SaoSalesOrder" id="SaoSalesOrderResultMap">
+	<id column="SAO_ID" property="saoId" jdbcType="INTEGER"/>
+	<id column="CREATED_BY" property="createdBy" jdbcType="VARCHAR"/>
+	<id column="CREATION_DATE" property="creationDate" jdbcType="TIMESTAMP"/>
+	<id column="LAST_UPDATE_BY" property="lastUpdateBy" jdbcType="VARCHAR"/>
+	<id column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="TIMESTAMP"/>
+	<id column="CALL_CNT" property="callCnt" jdbcType="INTEGER"/>
+	<id column="REMARK" property="remark" jdbcType="VARCHAR"/>
+	<id column="STS_CD" property="stsCd" jdbcType="VARCHAR"/>
+	<id column="MAN_ID" property="manId" jdbcType="INTEGER"/>
+	<id column="WAR_ID" property="warId" jdbcType="INTEGER"/>
+	<id column="SYNC_DATE" property="syncDate" jdbcType="TIMESTAMP"/>
+	<id column="PAYMENT_DATE" property="paymentDate" jdbcType="TIMESTAMP"/>
+	<id column="PUSH_DATE" property="pushDate" jdbcType="TIMESTAMP"/>
+	<id column="TRACK_NO_DATE" property="trackNoDate" jdbcType="TIMESTAMP"/>
+	<id column="FULFILLMENT_DATE" property="fulfillmentDate" jdbcType="TIMESTAMP" />
+	<id column="SETTLEMENT_DATE" property="settlementDate" jdbcType="TIMESTAMP" />
+	<id column="PRODUCT_AMOUNT" property="productAmount" jdbcType="DECIMAL" />
+	<id column="FREIGHT_COST" property="freightCost" jdbcType="DECIMAL" />
+	<id column="HANDLING_FEE" property="handlingFee" jdbcType="DECIMAL" />
+	<id column="CUSTOMER_REMARK" property="customerRemark" jdbcType="VARCHAR"/>
+	<id column="ORDER_NO" property="orderNo" jdbcType="VARCHAR"/>
+	<id column="ORDER_STS" property="orderSts" jdbcType="VARCHAR"/>
+	<id column="REFUND_STS" property="refundSts" jdbcType="VARCHAR"/>
+	<id column="DELIVERY_STS" property="deliverySts" jdbcType="VARCHAR"/>
+	<id column="STO_ID" property="stoId" jdbcType="INTEGER"/>
+	<id column="LAST_FREIGHT_COST" property="lastFreightCost" jdbcType="DECIMAL"/>
+	<id column="CANCLE_TIME" property="cancleTime" jdbcType="TIMESTAMP"/>
+	<id column="AUTO_PAY_STATUS" property="autoPayStatus" jdbcType="CHAR"/>
+	<id column="BUYER_CHECKOUT_MESSAGE" property="buyerCheckoutMessage" jdbcType="VARCHAR"/>
+	<id column="AUTO_PAY_TIME" property="autoPayTime" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+		<!-- 新增 -->
+	<insert id="saveSaoSalesOrder" useGeneratedKeys="true" keyProperty="saoId" parameterType="com.admin.entity.orders.SaoSalesOrder">
+		insert into sao_sales_order (
+			SAO_ID,
+			CREATED_BY,
+			CREATION_DATE,
+			LAST_UPDATE_BY,
+			LAST_UPDATE_DATE,
+			CALL_CNT,
+			REMARK,
+			STS_CD,
+			MAN_ID,
+			WAR_ID,
+			SYNC_DATE,
+			PAYMENT_DATE,
+			PUSH_DATE,
+			TRACK_NO_DATE,
+			FULFILLMENT_DATE,
+			SETTLEMENT_DATE,
+			PRODUCT_AMOUNT,
+			FREIGHT_COST,
+			HANDLING_FEE,
+			CUSTOMER_REMARK,
+			ORDER_NO,
+			ORDER_STS,
+			REFUND_STS,
+			DELIVERY_STS,
+			STO_ID,
+			LAST_FREIGHT_COST,
+			CANCLE_TIME,
+			AUTO_PAY_STATUS,
+			BUYER_CHECKOUT_MESSAGE,
+			AUTO_PAY_TIME
+		) values(
+			#{saoId},
+			#{createdBy},
+			#{creationDate},
+			#{lastUpdateBy},
+			#{lastUpdateDate},
+			#{callCnt},
+			#{remark},
+			"A",
+			#{manId},
+			#{warId},
+			#{syncDate},
+			#{paymentDate},
+			#{pushDate},
+			#{trackNoDate},
+			#{fulfillmentDate},
+			#{settlementDate},
+			#{productAmount},
+			#{freightCost},
+			#{handlingFee},
+			#{customerRemark},
+			#{orderNo},
+			#{orderSts},
+			#{refundSts},
+			#{deliverySts},
+			#{stoId},
+			#{lastFreightCost},
+			#{cancleTime},
+			#{autoPayStatus},
+			#{buyerCheckoutMessage},
+			#{autoPayTime}
+		)
+	</insert>
+	<!-- 修改 -->
+	<update id="updateSaoSalesOrder" parameterType="com.admin.entity.orders.SaoSalesOrder" >
+		update  sao_sales_order
+		<set>
+			<if test="createdBy!=null">CREATED_BY=#{createdBy},</if>
+			<if test="creationDate!=null">CREATION_DATE=#{creationDate},</if>
+			<if test="lastUpdateBy!=null">LAST_UPDATE_BY=#{lastUpdateBy},</if>
+			<if test="lastUpdateDate!=null">LAST_UPDATE_DATE=#{lastUpdateDate},</if>
+			<if test="callCnt!=null">CALL_CNT=#{callCnt},</if>
+			<if test="remark!=null">REMARK=#{remark},</if>
+			<if test="stsCd!=null">STS_CD=#{stsCd},</if>
+			<if test="manId!=null">MAN_ID=#{manId},</if>
+			<if test="warID!=null">WAR_ID=#{warId},</if>
+			<if test="syncDate!=null">SYNC_DATE=#{syncDate},</if>
+			<if test="paymentDate!=null">PAYMENT_DATE=#{paymentDate},</if>
+			<if test="pushDate!=null">PUSH_DATE=#{pushDate},</if>
+			<if test="trackNoDate!=null">TRACK_NO_DATE=#{trackNoDate},</if>
+			<if test="fulfillmentDate!=null">FULFILLMENT_DATE=#{fulfillmentDate}</if>
+			<if test="settlementDate!=null">SETTLEMENT_DATE=#{settlementDate}</if>
+			<if test="productAmount!=null">PRODUCT_AMOUNT=#{productAmount}</if>
+			<if test="freightCost!=null">FREIGHT_COST=#{freightCost}</if>
+			<if test="handlingFee!=null">HANDLING_FEE=#{handlingFee}</if>
+			<if test="customerRemark!=null">CUSTOMER_REMARK=#{customerRemark}</if>
+			<if test="orderNo!=null">ORDER_NO=#{orderNo}</if>
+			<if test="orderSts!=null">ORDER_STS=#{orderSts}</if>
+			<if test="refundSts!=null">REFUND_STS=#{refundSts}</if>
+			<if test="deliverySts!=null">DELIVERY_STS=#{deliverySts}</if>
+			<if test="stoId!=null">STO_ID=#{stoId}</if>
+			<if test="lastFreightCost!=null">LAST_FREIGHT_COST=#{lastFreightCost}</if>
+			<if test="cancleTime!=null">CANCLE_TIME=#{cancleTime}</if>
+			<if test="autoPayStatus!=null">AUTO_PAY_STATUS=#{autoPayStatus}</if>
+			<if test="buyerCheckoutMessage!=null">BUYER_CHECKOUT_MESSAGE=#{buyerCheckoutMessage}</if>
+			<if test="autoPayTime!=null">AUTO_PAY_TIME=#{autoPayTime}</if>
+			
+		</set>
+			where 
+				SAO_ID = #{saoId}
+		</update>
+		<!-- 删除 -->
+	<update id="deleteSaoSalesOrder" parameterType="java.lang.Integer">
+		update  sao_sales_order
+			set 
+				STS_CD	= "D"
+			where 
+				SAO_ID = #{saoId}
+	</update>		
+		<!-- 通过id查询数据 -->
+	<select id="findSaoSalesOrderById" parameterType="Integer" resultMap="SaoSalesOrderResultMap">
+		select 
+			*
+		from 
+			sao_sales_order
+		where 
+			SAO_ID = #{saoId}
+		and STS_CD	= "A"
+	</select>
+	
+	<select id="findSaoSalesOrderByStoId" parameterType="Integer" resultMap="SaoSalesOrderResultMap">
+		select 
+			*
+		from 
+			sao_sales_order
+		where
+			STS_CD="A"
+		and STO_ID=#{stoId}
+	</select>	
+
+</mapper>

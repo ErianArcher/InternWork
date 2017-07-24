@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ShaShippingAddressMapper">
+
+<resultMap id="ShaShippingAddressResultMap" 
+    type="com.admin.entity.orders.ShaShippingAddress">
+    <id column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+	<id column="CREATION_DATE" property="creationDate" jdbcType="TIMESTAMP" />
+	<id column="LAST_UPDATE_BY" property="lastUpdateBy" jdbcType="VARCHAR" />
+	<id column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+	<id column="CALL_CNT" property="callCnt" jdbcType="INTEGER" />
+	<id column="REMARK" property="remark" jdbcType="VARCHAR" />
+	<id column="STS_CD" property="stsCd" jdbcType="CHAR" />
+	<id column="FAMILY_NAME" property="familyName" jdbcType="VARCHAR" />
+    <id column="GIVEN_NAME" property="givenName" jdbcType="VARCHAR" />
+	<id column="COUNTRY_NAME" property="countryName" jdbcType="VARCHAR" />
+	<id column="COUNTRY_ISO_CD" property="countryIsoCd" jdbcType="VARCHAR" />
+	<id column="STATE_OR_PROVINCE_NAME" property="stateOrProvinceName"
+		jdbcType="VARCHAR" />
+	<id column="STATE_OR_PROVINCE_CD" property="stateOrProvinceCd"
+		jdbcType="VARCHAR" />
+	<id column="CITY_NAME" property="cityName" jdbcType="VARCHAR" />
+	<id column="ADDRESS_LINE1" property="addressLine1" jdbcType="VARCHAR" />
+	<id column="ADDRESS_LINE2" property="addressLine2" jdbcType="VARCHAR" />
+	<id column="ADDRESS_LINE3" property="addressLine3" jdbcType="VARCHAR" />
+	<id column="POSTAL_CD" property="postalCd" jdbcType="VARCHAR" />
+	<id column="CONTACT_PHONE_NO" property="contactPhoneNo" jdbcType="VARCHAR" />
+    <id column="EMAIL" property="email" jdbcType="VARCHAR" />
+	<id column="STO_ID" property="stoId" jdbcType="INTEGER" />
+	<id column="CARRIER_NAME" property="carrierName" jdbcType="VARCHAR" />
+	</resultMap>
+
+    <!-- 通过id获取数据 -->
+	<select id="getShaShippingAddressBystoId" parameterType="Integer" resultMap="ShaShippingAddressResultMap">
+		select
+			*
+		from
+		    sha_shipping_address
+		where
+		1=1
+		and	STO_ID=#{stoId}
+		and STS_CD= 'A'
+	</select>
+	
+	<insert id="saveShaShippingAddress" parameterType="com.admin.entity.orders.ShaShippingAddress">
+		insert
+		into sha_shipping_address(
+		CREATED_BY,
+		CREATION_DATE,
+		LAST_UPDATE_BY,
+		LAST_UPDATE_DATE,
+		CALL_CNT,
+		REMARK,
+		STS_CD,
+		FAMILY_NAME,
+		GIVEN_NAME,
+		COUNTRY_NAME,
+		COUNTRY_ISO_CD,
+		STATE_OR_PROVINCE_NAME,
+		STATE_OR_PROVINCE_CD,
+		CITY_NAME,	
+		ADDRESS_LINE1,
+		ADDRESS_LINE2,
+		ADDRESS_LINE3,
+		POSTAL_CD,
+		CONTACT_PHONE_NO,
+		EMAIL,
+		STO_ID,
+		CARRIER_NAME
+		) values(
+			#{createdBy},
+			#{creationDate},
+			#{lastUpdateBy},
+			#{lastUpdateDate},
+			#{callCnt},
+			#{remark},
+			'A',
+			#{familyName},
+			#{givenName},
+			#{countryName},
+			#{countryIsoCd},
+			#{stateOrProvinceName},
+			#{stateOrProvinceCd},
+			#{cityName},
+			#{addressLine1},
+			#{addressLine2},
+			#{addressLine3},
+			#{postalCd},
+			#{contactPhoneNo},
+			#{email},
+			#{stoId},
+			#{carrierName}
+		)
+	</insert>
+	
+	<update id="deletShashippingAddressById" parameterType="Integer" >
+		update sha_shipping_address
+		set
+		STS_CD = 'D'
+		where
+		1=1
+		and STO_ID =#{stoId}
+	</update>
+	
+	<update id="updateShaShippingAddressById" parameterType="com.admin.entity.orders.ShaShippingAddress">
+		update sha_shipping_Address
+		<set>
+			<if test="createdBy!=null">CREATED_BY=#{createdBy},</if>
+			<if test="creationDate!=null">CREATION_DATE=#{creationDate},</if>
+			<if test="lastUpdateBy!=null">LAST_UPDATE_BY=#{lastUpdateBy},</if>
+			<if test="lastUpdateDate!=null">LAST_UPDATE_DATE=#{lastUpdateDate},</if>
+			<if test="callCnt!=null">CALL_CNT=#{callCnt},</if>
+			<if test="remark!=null">REMARK=#{remark},</if>
+			<if test="stsCd!=null">STS_CD='A',</if>
+			<if test="familyName!=null">FAMILY_NAME=#{familyName},</if>
+			<if test="givenName!=null">GIVEN_NAME=#{givenName},</if>
+			<if test="countryName!=null">COUNTRY_NAME=#{countryName},</if>
+			<if test="countryIsoCd!=null">COUNTRY_ISO_CD=#{countryIsoCd},</if>
+			<if test="stateOrProvinceName!=null">STATE_OR_PROVINCE_NAME=#{stateOrProvinceName},</if>
+			<if test="stateOrProvinceCd!=null">STATE_OR_PROVINCE_CD=#{stateOrProvinceCd},</if>
+			<if test="cityName!=null">CITY_NAME=#{cityName},</if>
+			<if test="addressLine1!=null">ADDRESSLINE1=#{addressLine1},</if>
+			<if test="addressLine2!=null">ADDRESSLINE2=#{addressLine2},</if>
+			<if test="addressLine3!=null">ADDRESSLINE3=#{addressLine3},</if>
+			<if test="postalCd!=null">POSTAL_CD=#{postalCd},</if>
+			<if test="contactPhoneNo!=null">CONTACT_PHONE_NO=#{contactPhoneNo},</if>
+			<if test="email!=null">EMAIL=#{email},</if>
+			<if test="stoId!=null">STO_ID=#{stoId},</if>
+			<if test="carrierName!=null">CARRIER_NAME=#{carrierName}</if>
+		</set>
+		where
+		STO_ID=#{stoId}
+	</update>
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="OriginalOrderItemsMapper">
+
+	<resultMap id="OriginalOrderItemsResultMap"
+		type="com.admin.entity.orders.OriginalOrderItems">
+		<id column="SOL_ID" property="solId" jdbcType="INTEGER" />
+		<id column="ORDER_ITEM_ID" property="orderItemId" jdbcType="VARCHAR" />
+		<id column="STO_ID" property="stoId" jdbcType="INTEGER" />
+		<id column="SALES_PRICE" property="salesPrice" jdbcType="DECIMAL" />
+		<id column="QTY" property="qty" jdbcType="INTEGER" />
+		<id column="SKU_NO" property="skuNo" jdbcType="VARCHAR" />
+		<id column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+		<id column="CREATION_DAY" property="creationDay" jdbcType="TIMESTAMP" />
+		<id column="LAST_UPDATE_BY" property="lastUpdateBy" jdbcType="VARCHAR" />
+		<id column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+		<id column="CALL_CNT" property="callCnt" jdbcType="INTEGER" />
+		<id column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<id column="STS_CD" property="stsCd" jdbcType="CHAR" />
+		<id column="BUYER_CHECKOUT_MESSAGE" property="buyerCheckoutMessage" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<!-- 新增 -->
+	<insert id="saveOriginalOrderItems" useGeneratedKeys="true" keyProperty="solId" parameterType="com.admin.entity.orders.OriginalOrderItems">
+		insert into sol_store_order_line_item (
+			ORDER_ITEM_ID,
+			STO_ID,
+			SALES_PRICE,
+			QTY,
+			SKU_NO,
+			CREATED_BY,
+			CREATION_DATE,
+			LAST_UPDATE_BY,
+			LAST_UPDATE_DATE,
+			CALL_CNT,
+			REMARK,
+			STS_CD,
+			BUYER_CHECKOUT_MESSAGE
+		) values(
+			#{orderItemId},
+			#{stoId},
+			#{salesPrice},
+			#{qty},
+			#{skuNo},
+			#{createdBy},
+			#{creationDate},
+			#{lastUpdateBy},
+			#{lastUpdateDate},
+			#{callCnt},
+			#{remark},
+			'A',
+			#{buyerCheckoutMessage}
+		)
+	</insert>
+	<!-- 修改 -->
+	<update id="updateOriginalOrderItems" parameterType="com.admin.entity.orders.OriginalOrderItems" >
+		update  sol_store_order_line_item
+		<set>
+			<if test="orderItemId!=null">ORDER_ITEM_ID=#{orderItemId},</if>
+			<if test="stoId!=null">STO_ID=#{stoId},</if>
+			<if test="salesPrice!=null">SALES_PRICE=#{salesPrice},</if>
+			<if test="qty!=null">QTY=#{qty},</if>
+			<if test="skuNo!=null">SKU_NO=#{skuNo},</if>
+			<if test="createdBy!=null">CREATED_BY=#{createdBy},</if>
+			<if test="creationDate!=null">CREATION_DATE=#{creationDate},</if>
+			<if test="lastUpdateBy!=null">LAST_UPDATE_BY=#{lastUpdateBy},</if>
+			<if test="lastUpdateBy!=null">LAST_UPDATE_DATE=#{lastUpdateDate},</if>
+			<if test="callCnt!=null">CALL_CNT=#{callCnt},</if>
+			<if test="remark!=null">REMARK=#{remark},</if>
+			<if test="stsCd!=null">STS_CD='A',</if>
+			<if test="buyerCheckoutMessage!=null">BUYER_CHECKOUT_MESSAGE=#{buyerCheckOutMessage}</if>
+		</set>
+			where 
+				SOL_ID = #{solId}
+	</update>
+	
+	<!-- 删除 -->
+	<update id="deleteOriginalOrderItems" parameterType="java.lang.Integer">
+		update  sol_store_order_line_item
+			set 
+				STS_CD	= 'D'
+			where 
+				SOL_ID = #{solId}
+	</update>
+	<!-- 通过id查询数据 -->
+	<select id="findOriginalOrderItemsById" parameterType="Integer" resultMap="OriginalOrderItemsResultMap">
+		select 
+			*
+		from 
+			sol_store_order_line_item
+		where 
+			SOL_ID = #{solId}
+		and STS_CD	= 'A'
+	</select>
+
+	
+</mapper>
