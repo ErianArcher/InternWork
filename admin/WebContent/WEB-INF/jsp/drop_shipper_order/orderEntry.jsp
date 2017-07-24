@@ -68,10 +68,10 @@ div#commodityEntry {
 				<label for="name">商家ID(strID)</label>
 				<input type="text" id="strIDInput" class="form-control">
 				<label for="name">快递选择</label>
-				<select class="form-control" id="">
-					<option>顺丰</option>
-					<option>圆通</option>
-					<option>中通</option>
+				<select class="form-control" id="courierName">
+					<option value="shunfeng">顺丰</option>
+					<option value="yuantong">圆通</option>
+					<option value="zhongtong">中通</option>
 				</select>
 			</div> <!-- end of input-group-->
 			
@@ -438,6 +438,9 @@ div#commodityEntry {
 		});
 	}
 	
+	function getCourierAndStrID(){
+
+	}
 	function getAddress() {
 		var address = {}
 		$.each(ele, function(index, value) {
@@ -445,6 +448,7 @@ div#commodityEntry {
 			console.log(address[value]);
 		});
 	}
+
 	function getCommodities() {
 		var json = [];
 		for (var i = 1; i <= commodityCount; i++) {
