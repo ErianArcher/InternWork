@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>s
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,7 +10,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<base href="<%=basePath%>">+"orders/addOriginalOrderAndAddressAndIterms"<!-- jsp文件头和头部 -->
+<base href="<%=basePath%>"+"orders/addOriginalOrderAndAddressAndIterms"> <!-- jsp文件头和头部 -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -157,7 +157,7 @@ div#orderDetails {
 				</div>
 				
 				<div class="sendButton">
-					<button type="button" class="btn btn-default">提交订单</button>
+					<button type="button" class="btn btn-default" onclick="payment()" id ="submitPayment">提交订单</button>
 				</div>
 			</div>
 		</form>
@@ -189,6 +189,22 @@ div#orderDetails {
 			 };
 			 diag.show();
 		}
+		function payment(){
+			 top.jzts();
+			 var diag = new top.Dialog();
+			 diag.Drag=true;
+			 diag.Title ="编辑";
+			 diag.URL = '<%=basePath%>monitor/findMonitorView.do?viewName=drop_shipper_order/pay_confirm';
+			 diag.Width = 300;
+			 diag.Height = 200;
+			 diag.CancelEvent = function(){ //关闭事件
+				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+					 nextPage();
+				}
+				diag.close();
+			 };
+			 diag.show();
+		}
 		
 		function sendRequestValues(Id)
 		{
@@ -211,6 +227,22 @@ div#orderDetails {
 		    		 
 			});  			
 		}
+		$('#submitPayment').on('click', function() {
+			$.ajax({
+				type : "post",
+				url : '<%=basePath%>'+"orders/addOriginalOrderAndAddressAndItems",
+				dataType : "json",
+				data : JSON.stringify({
+					saoId : '${saoSalesOrder.saoId}',
+				}),
+				success : function(msg) {
+					console.log(msg);
+				},
+				error : function(msg) {
+					console.log(msg);
+				}
+			});
+		});
 		
 		function getFreCompany(){
 			var val=$('input:radio[name="sendMethod"]:checked').val();
