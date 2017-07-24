@@ -377,11 +377,11 @@ div#commodityEntry {
 			.on(
 					'click',
 					function() {
-						var skuNo = $('#commoditySKU').val();
-						var qty = $('#commodityQuantity').val();
-						if (sku == "" || sku == undefined || sku == null) {
-							if (quantity == "" || quantity == undefined
-									|| quantity == null) {
+						var skuNo = $('#commoditySKU').val(); //sku no
+						var qty = $('#commodityQuantity').val(); // quantity of commodity
+						if (skuNo == "" || skuNo == undefined || skuNo == null) {
+							if (qty == "" || qty == undefined
+									|| qty == null) {
 								shake('commoditySKU');
 
 							} else {
@@ -389,8 +389,8 @@ div#commodityEntry {
 								shake('commoditySKU');
 							}
 						} else {
-							if (quantity == "" || quantity == undefined
-									|| quantity == null) {
+							if (qty == "" || qty == undefined
+									|| qty == null) {
 								// warning quantity
 								shake('quantity');
 							} else {
@@ -404,17 +404,17 @@ div#commodityEntry {
 														+ 'SKU：'
 														+ '</label>'
 														+ '<label class="col-sm-3" id="commoditySKU'+commodityCount +'">'
-														+ sku
+														+ skuNo
 														+ '</label>'
 														+ '<label class="col-sm-3"> 商品'
 														+ commodityCount
 														+ '数量：'
 														+ '</label>'
 														+ '<label class="col-sm-3" id="commodityQuantity'+commodityCount+'">'
-														+ quantity + '</label>'
+														+ qty + '</label>'
 														+ '</div>');
-								var sku = $('#commoditySKU').val("");
-								var quantity = $('#commodityQuantity').val("1");
+								var skuNo = $('#commoditySKU').val("");
+								var qty = $('#commodityQuantity').val("1");
 								$('#addCommodity').modal('hide');
 							}
 						}
@@ -449,7 +449,7 @@ div#commodityEntry {
 	$('#submitOrder').on('click', function() {
 		$.ajax({
 			type : "post",
-			url : <%=basePath%>+"orders/addOriginalOrderAndAddressAndItems",
+			url : '<%=basePath%>'+"orders/addOriginalOrderAndAddressAndItems",
 			dataType : "json",
 			data : JSON.stringify({
 				stoStoreOrder: {strId:"12654388"},
