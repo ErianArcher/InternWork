@@ -447,17 +447,18 @@ div#commodityEntry {
 		return json;
 	}
 	$('#submitOrder').on('click', function() {
+		var orderData = JSON.stringify({
+			stoStoreOrder: {strId:"12654388"},
+			shaShippingAddress : getAddress(),
+			orderItems : getCommodities()
+		});
 		$.ajax({
 			type : "post",
 			url : '<%=basePath%>'+"orders/addOriginalOrderAndAddressAndItems",
 			dataType : "json",
-			data : JSON.stringify({
-				stoStoreOrder: {strId:"12654388"},
-				shaShippingAddress : getAddress(),
-				orderItems : getCommodities()
-			}),
+			data : orderData,
 			success : function(msg) {
-				console.log(msg);
+				windows.location.href='<%=basePath%>'+"orders/showSaoSalesOrderItems";
 			},
 			error : function(msg) {
 				console.log(msg);
