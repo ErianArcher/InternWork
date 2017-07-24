@@ -427,11 +427,12 @@ div#commodityEntry {
 	}
 	
 	function getAddress() {
-		var address = {}
+		var address = {};
 		$.each(ele, function(index, value) {
 			address[value] = $('#'+value).attr('value');
 			console.log(address[value]);
 		});
+		return address;
 	}
 	function getCommodities() {
 		var json = [];
