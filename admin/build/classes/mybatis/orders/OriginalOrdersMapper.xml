@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="OriginalOrdersMapper">
+		<resultMap id="OriginalOrdersResultMap"			
+		type="com.admin.entity.orders.OriginalOrders">
+		<id column="STO_ID" property="stoId" jdbcType="INTEGER" />
+		<id column="STR_ID" property="strId" jdbcType="INTEGER" />
+		<id column="ORDER_ID" property="orderId" jdbcType="VARCHAR" />
+		<id column="ORDER_CREATED_TIME" property="orderCreatedTime" jdbcType="VARCHAR" />
+		<id column="PAID_TIME" property="paidTime" jdbcType="VARCHAR" />
+		<id column="LAST_MODIFIED_TIME" property="lastModifiedTime" jdbcType="VARCHAR" />
+		<id column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+		<id column="CREATION_DATE" property="creationDate" jdbcType="TIMESTAMP" />
+		<id column="LAST_UPDATE_BY" property="lastUpdateBy" jdbcType="VARCHAR" />
+		<id column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+		<id column="CALL_CNT" property="callCnt" jdbcType="INTEGER" />
+		<id column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<id column="STS_CD" property="stsCd" jdbcType="CHAR" />
+		<id column="PLATEFORM_TYPE" property="plateformType" jdbcType="VARCHAR" />
+		<id column="CANCEL_COMPLETE_DATE" property="cancelCompleteDate" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="findOriginalOrderById" parameterType="Integer" resultMap="OriginalOrdersResultMap">
+		select
+			* 
+		from  sto_store_order
+		where
+		1=1
+		and STO_ID = #{orderId}
+		and STS_CD	= 'A'
+	</select>
+	<select id="findOriginalOrderByStrId" parameterType="Integer" resultMap="OriginalOrdersResultMap">
+		select 
+			*
+		from sto_store_order
+		where
+		1=1
+		and STR_ID=#{strId}
+		and STS_CD	= 'A'
+	</select>
+	<select id="findOriginalOrder" resultMap="OriginalOrdersResultMap">
+		select
+			* 
+		from  sto_store_order
+		where
+		1=1
+		and STS_CD	= 'A'
+	</select>
+	<insert id="saveOriginalOrder" useGeneratedKeys="true" keyProperty="stoId" parameterType="com.admin.entity.orders.OriginalOrders">
+		insert
+		into sto_store_order(
+		STR_ID,
+		ORDER_ID,
+		ORDER_CREATED_TIME,
+		PAID_TIME,
+		LAST_MODIFIED_TIME,
+		CREATED_BY,
+		CREATION_DATE,
+		LAST_UPDATE_BY,
+		LAST_UPDATE_DATE,
+		CALL_CNT,
+		REMARK,
+		STS_CD,
+		PLATEFORM_TYPE,
+		CANCEL_COMPLETE_DATE
+		) values(
+		<if test="strId!=null">
+			#{strId},
+		</if> 
+			#{orderId},
+			#{orderCreatedTime},
+			#{paidTime},
+			#{lastModifiedTime},
+			#{createdBy},
+			#{creationDate},
+			#{lastUpdateBy},
+			#{lastUpdateDate},
+			#{callCnt},
+			#{remark},
+			'A',
+			#{plateformType},
+			#{cancelCompleteDate}
+		)
+	</insert>
+	
+	<update id="deletOrderById" parameterType="Integer" >
+		update sto_store_order
+		set
+		STS_CD = 'D'
+		where
+		STO_ID =#{stoId}
+	</update>
+	
+	<update id="updateOrderById" parameterType="com.admin.entity.orders.OriginalOrders">
+		update sto_store_order
+		<set>
+			<if test="strId!=null">STR_ID=#{strId},</if>
+			<if test="orderId!=null">ORDER_ID=#{orderId},</if>
+			<if test="orderCreatedTime!=null">ORDER_CREATED_TIME=#{orderCreatedTime},</if>
+			<if test="paidTime!=null">PAID_TIME=#{paidTime},</if>
+			<if test="lastModifiedTime!=null">LAST_MODIFIED_TIME=#{lastModifiedTime},</if>
+			<if test="createdBy!=null">CREATED_BY=#{createdBy},</if>
+			<if test="creationDate!=null">CREATION_DATE=#{creationDate},</if>
+			<if test="lastUpdateBy!=null">LAST_UPDATE_BY=#{lastUpdateBy},</if>
+			<if test="callCnt!=null">CALL_CNT=#{callCnt},</if>
+			<if test="remark!=null">REMARK=#{remark},</if>
+			<if test="stsCd!=null">STS_CD='A',</if>
+			<if test="plateformType!=null">PLATEFORM_TYPE=#{plateformType},</if>
+			<if test="cancelCompleteDate!=null">CANCEL_COMPLETE_DATE=#{cancelCompleteDate}</if>
+		</set>
+		where
+		STO_ID=#{stoId}
+	</update>
+</mapper>

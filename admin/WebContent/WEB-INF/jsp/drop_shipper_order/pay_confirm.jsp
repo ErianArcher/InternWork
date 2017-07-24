@@ -35,13 +35,20 @@
     </head>
 
 <body>
-    <form action="pictures/${msg }.do" name="Form" id="Form" method="post" enctype="multipart/form-data">
+    <form action="orders/payForSalesOrder" name="myForm" id="myForm" method="get" enctype="multipart/form-data">
 		
 		<div id="zhongxin">
 		<table id="table_report" class="table table-striped table-bordered table-hover">
+		<thead>
 			<tr>
-				<th>订单总额:</th>
-				<td><input type="hidden" name="saoId" value="${saoId}">${ddddd }</td>
+				
+				<th>销售订单ID</th>
+				<th>订单总额</th>
+			</tr>
+		</thead>
+			<tr>
+				<td><input type="hidden" name="saoId" value="${saoId}">${saoId}</td>
+				<td><input type="hidden" name="allPrice" value="${allPrice}">${allPrice}</td>
 			</tr>
 			
 			<tr>

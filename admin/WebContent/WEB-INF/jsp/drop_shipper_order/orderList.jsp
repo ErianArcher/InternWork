@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</tr>
 					</thead>
 					<tbody>
-						<c:when test="${not empty saoSalesOrderListAll}">
+						<c:if test="${not empty saoSalesOrderListAll}">
 						<c:forEach items="${saoSalesOrderListAll}" var="saoSaleOrder" varStatus="vs">
 						<tr>
 							<td><label>${saoSaleOrder.saoId}</label></td>
@@ -60,22 +60,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td><label>${saoSaleOrder.customerRemark}</label></td>
 							<td>
 								<c:choose>
-								<!-- 点开订单详情的按钮 -->
-								<c:when test="${saoSaleOrder.stsCd != '1'}">
-								<label>已支付</label>
-							</c:when>
-							<c:otherwise>
-							<button type="button" class="btn btn-default" onclick="detailButton(${saoSaleOrder.saoId})"/>
-						</c:otherwise>
-					</td>
-				</tr>
-			</c:forEach>
-		</c:when>
-		<c:otherwise>
-		
-	</c:otherwise>
-
-</c:choose>
+									<c:when test="${saoSaleOrder.orderSts != '1' }">
+										<label>已支付</label>
+									</c:when>
+									<c:otherwise>
+										<button type="button" class="btn btn-default" 
+										onclick="detailButton(${saoSaleOrder.saoId})">支付</button>
+									</c:otherwise>
+								</c:choose>
+							</td>
+						</tr>
+				</c:forEach>
+			</c:if>
 </tbody>
 </table>
 
@@ -88,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- stop loading -->
 	$(top.hangge());
 	function detailButton(saoId) {
-		windows.location.href='<%=basePath%>'+"/getOrderInformation/"+saoId;
+		window.location.replace("getOrderInformation?saoId="+saoId);
 	}
 </script>
 </html>

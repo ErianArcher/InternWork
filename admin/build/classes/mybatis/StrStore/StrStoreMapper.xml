@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="StrStoreMapper">
+
+	<resultMap id="StrStoreResultMap"
+		type="com.admin.entity.StrStore">
+		<id column="STR_ID" property="strId" jdbcType="INTEGER" />
+		<id column="DSR_ID" property="dsrId" jdbcType="INTEGER" />
+		<id column="PLATAEFORM_TYPE" property="plataeformType" jdbcType="VARCHAR" />
+		<id column="STORE_NAME" property="storeName" jdbcType="VARCHAR" />
+		<id column="STORE_STS_CD" property="storeStsCd" jdbcType="VARCHAR" />
+		<id column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+		<id column="CREATION_DATE" property="creationDate" jdbcType="TIMESTAMP" />
+		<id column="LAST_UPDATE_BY" property="lastUpdateBy" jdbcType="VARCHAR" />
+		<id column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+		<id column="CALL_CNT" property="callCnt" jdbcType="VARCHAR" />
+		<id column="REMARK" property="remark" jdbcType="INTEGER" />
+		<id column="STS_CD" property="stsCd" jdbcType="CHAR" />
+	</resultMap>
+	
+	<!-- 增加-->
+	<insert id="insertStore" parameterType="com.admin.entity.StrStore" keyProperty="strId">
+		insert into str_store (
+			STR_ID,
+			DSR_ID,
+			PLATAEFORM_TYPE,
+			STORE_NAME,
+			STORE_STS_CD,
+			CREATED_BY,
+			CREATION_DATE,
+			LAST_UPDATE_BY,
+			LAST_UPDATE_DATE,
+			CALL_CNT,
+			STS_CD,
+			REMARK
+		) values (
+			#{strId},
+			#{dsrId},
+			#{plataeformType},
+			#{storeName},
+			#{storeStsCd},
+			#{createdBy},
+			#{creationDate},
+			#{lastUpdateBy},
+			#{lastUpdateDate},
+			#{callCnt},
+			#{stsCd},
+			#{remark}
+		)
+	</insert>
+	<!-- 通过借卖id获取所有网店信息 -->
+	<select id="findStoreByDsrId" parameterType="com.admin.entity.StrStore" resultMap="StrStoreResultMap">
+		select 
+			STR_ID,
+			DSR_ID,
+			PLATAEFORM_TYPE,
+			STORE_NAME,
+			STORE_STS_CD,
+			CREATED_BY,
+			CREATION_DATE,
+			LAST_UPDATE_BY,
+			LAST_UPDATE_DATE,
+			CALL_CNT,
+			STS_CD,
+			REMARK
+		from 
+			str_store
+		where 
+			DSR_ID = #{dsrId}
+		and STS_CD	= 'A'
+	</select>
+	
+	<!-- 通过网店id获取网店信息 -->
+	<select id="findStoreByStrId" parameterType="com.admin.entity.StrStore" resultMap="StrStoreResultMap">
+		select 
+			STR_ID,
+			DSR_ID,
+			PLATAEFORM_TYPE,
+			STORE_NAME,
+			STORE_STS_CD,
+			CREATED_BY,
+			CREATION_DATE,
+			LAST_UPDATE_BY,
+			LAST_UPDATE_DATE,
+			CALL_CNT,
+			STS_CD,
+			REMARK
+		from 
+			str_store
+		where 
+			STR_ID = #{strId}
+		and STS_CD	= 'A'
+	</select>
+	
+	<!-- 关闭网店 -->
+	<update id="closeStrStore" parameterType="com.admin.entity.StrStore">
+		update  str_store
+			set 
+				STORE_STS_CD = 'CLS'
+			where 
+				STR_ID = #{strId}
+	</update>
+	
+	<!-- 删除网店 -->
+	<update id="deleteStrStore" parameterType="com.admin.entity.StrStore">
+		update  str_store
+			set 
+				STS_CD = 'D'
+			where 
+				STR_ID = #{strId}
+	</update>
+	
+	<!-- 更新网店信息 -->
+	<update id="">
+	</update>
+	
+</mapper>

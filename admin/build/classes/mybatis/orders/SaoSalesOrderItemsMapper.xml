@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SaoSalesOrdersItemsMapper">
+	<resultMap type="com.admin.entity.orders.SaoSalesOrderItems" id="SaoSalesOrderItemsResultMap">
+	<id column="SAL_ID" property="salId" jdbcType="INTEGER"/>
+	<id column="CREATED_BY" property="createdBy" jdbcType="VARCHAR"/>
+	<id column="CREATION_DATE" property="creationDate" jdbcType="TIMESTAMP"/>
+	<id column="LAST_UPDATE_BY" property="lastUpdateBy" jdbcType="VARCHAR"/>
+	<id column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="TIMESTAMP"/>
+	<id column="CALL_CNT" property="callCnt" jdbcType="INTEGER"/>
+	<id column="REMARK" property="remark" jdbcType="VARCHAR"/>
+	<id column="STS_CD" property="stsCd" jdbcType="VARCHAR"/>
+	<id column="SAO_ID" property="saoId" jdbcType="INTEGER"/>
+	<id column="PRO_ID" property="proId" jdbcType="INTEGER"/>
+	<id column="QTY" property="qty" jdbcType="INTEGER"/>
+	<id column="PRICE" property="price" jdbcType="DECIMAL"/>
+	<id column="SOL_ID" property="solId" jdbcType="INTEGER"/>
+	<id column="TRACKING_NO" property="trackingNo" jdbcType="VARCHAR"/>
+	<id column="WSP_NAME" property="wspName" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 新增 -->
+	<insert id="saveSaoSalesOrderItems" useGeneratedKeys="true" keyProperty="salId" parameterType="com.admin.entity.orders.SaoSalesOrderItems">
+		insert into sal_sales_order_line_item (
+			SAL_ID,
+			CREATED_BY,
+			CREATION_DATE,
+			LAST_UPDATE_BY,
+			LAST_UPDATE_DATE,
+			CALL_CNT,
+			REMARK,
+			STS_CD,
+			SAO_ID,
+			PRO_ID,
+			QTY,
+			PRICE,
+			SOL_ID,
+			TRACKING_NO,
+			WSP_NAME
+		) values(
+			#{salId},
+			#{createdBy},
+			#{creationDate},
+			#{lastUpdateBy},
+			#{lastUpdateDate},
+			#{callCnt},
+			#{remark},
+			'A',
+			#{saoId},
+			#{proId},
+			#{qty},
+			#{price},
+			#{solId},
+			#{trackingNo},
+			#{wspName}
+		)
+	</insert>
+		<!-- 修改 -->
+	<update id="updateSaoSalesOrderItems" parameterType="com.admin.entity.orders.SaoSalesOrderItems" >
+		update  sal_sales_order_line_item
+		<set>
+			<if test="createdBy!=null">CREATED_BY=#{createdBy},</if>
+			<if test="creationDate!=null">CREATION_DATE=#{creationDate},</if>
+			<if test="lastUpdateBy!=null">LAST_UPDATE_BY=#{lastUpdateBy},</if>
+			<if test="lastUpdateDate!=null">LAST_UPDATE_DATE=#{lastUpdateDate},</if>
+			<if test="callCnt!=null">CALL_CNT=#{callCnt},</if>
+			<if test="remark!=null">REMARK=#{remark},</if>
+			<if test="stsCd!=null">STS_CD=#{stsCd},</if>
+			<if test="saoId!=null">SAO_ID=#{saoId},</if>
+			<if test="proId!=null">PRO_ID=#{proId},</if>
+			<if test="qty!=null">QTY=#{qty},</if>
+			<if test="price!=null">PRICE=#{price},</if>
+			<if test="solId!=null">SOL_ID=#{solId},</if>
+			<if test="trackingNo!=null">TRACKING_NO=#{trackingNo},</if>
+			<if test="wspName!=null">WSP_NAME=#{wspName}</if>
+		</set>
+			where 
+				SAL_ID = #{salId}
+	</update>
+		<!-- 删除 -->
+	<update id="deleteSaoSalesOrderItems" parameterType="Integer">
+		update  sal_sales_order_line_item
+			set 
+				STS_CD	= 'D'
+			where 
+				SAL_ID = #{salId}
+	</update>
+	<!-- 通过id查询数据 -->
+	<select id="findSaoSalesOrderItemsById" parameterType="Integer" resultMap="SaoSalesOrderItemsResultMap">
+		select 
+			*
+		from 
+			sal_sales_order_line_item
+		where 
+			SAL_ID = #{salId}
+		and STS_CD	= 'A'
+	</select>
+	<select id="findSaoSalesOrderItemsBySaoId" parameterType="Integer" resultMap="SaoSalesOrderItemsResultMap">
+		select
+			*
+		from
+			sal_sales_order_line_item
+		where
+			SAO_ID=#{saoId}
+		and STS_CD	= 'A'
+	</select>
+	
+</mapper>

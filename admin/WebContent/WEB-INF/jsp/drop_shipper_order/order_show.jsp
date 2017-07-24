@@ -72,24 +72,25 @@ div#orderDetails {
 					</thead>
 					<tbody>
 						<tr>
-						<td>${shaShippingAddress.familyName}</td>
-						<td>${shaShippingAddress.givenNamecontactPhoneNo}</td>
-						<td>${shaShippingAddress.contactPhoneNo}</td>
-						<td>${shaShippingAddress.email}</td>
-						<td>${shaShippingAddress.countryName}</td>
-						<td>${shaShippingAddress.stateOfProvinceName}</td>
-						<td>${shaShippingAddress.cityName}</td>
-						<td>${shaShippingAddress.addressLine1}</td>
-						<td>${shaShippingAddress.postalCd}</td>
-						<td>${shaShippingAddress.countryIsoCd}</td>
-						<td>${shaShippingAddress.stateOfProvinceCd}</td>
+						<td id="familyName">${shaShippingAddress.familyName}</td>
+						<td id="givenName">${shaShippingAddress.givenName}</td>
+						<td id="contactPhoneNo">${shaShippingAddress.contactPhoneNo}</td>
+						<td id="email">${shaShippingAddress.email}</td>
+						<td id="countryName">${shaShippingAddress.countryName}</td>
+						<td id="stateOrProvinceName">${shaShippingAddress.stateOrProvinceName}</td>
+						<td id="cityName">${shaShippingAddress.cityName}</td>
+						<td id="addressLine1">${shaShippingAddress.addressLine1}</td>
+						<td id="postalCd">${shaShippingAddress.postalCd}</td>
+						<td id="countryIsoCd">${shaShippingAddress.countryIsoCd}</td>
+						<td id="stateOrProvinceCd">${shaShippingAddress.stateOrProvinceCd}</td>
 						<td style="width: 30px;" class="center">
 											<c:if test="${QX.edit != 1 && QX.del != 1 }">
 											<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="icon-lock" title="无权限"></i></span>
 											</c:if>
 											<div>
 											<c:if test="${QX.edit == 1 }">
-											<a style="cursor:pointer;" title="编辑" onclick="edit('${saoSaleOrder.saoId}');">edit</a>
+											<button type="button" class="btn btn-primary" id="editAddress"
+											data-toggle="modal" data-target="#operateAddressModalBox">修改</button>
 											</c:if>
 											<c:if test="${QX.del == 1 }">
 											
@@ -109,7 +110,7 @@ div#orderDetails {
 						<caption>商品清单:</caption>
 						<thead>
 							<tr>
-								<th>商品SUK</th>
+								
 								<th>商品图片</th>
 								<th>商品名字</th>
 								<th>商品单价</th>
@@ -120,29 +121,18 @@ div#orderDetails {
 							
 							<!-- 开始循环 -->	
 							<c:choose>
-								<c:when test="${not empty saoSaleOrderList}">
-								<c:if test="${QX.cha == 1 }">
-								<c:forEach items="${saoSaleOrderList}" var="saoSaleOrder" varStatus="vs">
+								<c:when test="${not empty saoSalesOrderItems}">
 								<tr>
-								<!-- xuhao -->								
-								<td class='center' style="width: 30px;">${vs.index+1}</td>
+								
 								<!--from tupian to shuliang -->
-								<td>${var.skuNo}</td>				
+			
 										<td>
 										<img src="http://imgsrc.baidu.com/baike/pic/item/6a63f6246b600c338f25aa7f1a4c510fd9f9a12c.jpg" ></a>
 										</td>							
-										<td>${var.ptoId}</td>
-										<td>${var.price}</td>
-										<td>${var.qty}</td>			
+										<td>${saoSalesOrderItems.proId}</td>
+										<td>${saoSalesOrderItems.price}</td>
+										<td>${saoSalesOrderItems.qty}</td>			
 								</tr>
-						
-								</c:forEach>
-								</c:if>
-						<c:if test="${QX.cha == 0 }">
-							<tr>
-								<td colspan="100" class="center">您无权查看</td>
-							</tr>
-						</c:if>
 						</c:when>
 						<c:otherwise>
 							<tr class="main_info">
@@ -158,14 +148,14 @@ div#orderDetails {
 				<div id="postage">
 					<div style="margin-left:10px;">
 						<label>邮费：</label>
-						<label>${saoSaleOrder.freightCost}</label>
+						<label id="frePrice"></label>
 					</div>	
 				</div>
 				
 				<div id="totalPrice">
 					<div style="margin-left:10px">
 						<label>总价：</label>
-						<label>${saoSaleOrder.productAmount}</label>
+						<label>${saoSalesPrice}</label>
 					</div>
 				</div>
 			</div>
@@ -200,7 +190,146 @@ div#orderDetails {
 		</form>
 	</div>
 
-		
+	
+	<div class="modal fade" id="operateAddressModalBox" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">×</button>
+						<h4 class="modal-title" id="OAModalTitle">收货地址</h4>
+					</div>
+					<!-- address inputs -->
+					<div id="addressInput" class="modal-body" style="overflow-y: auto">
+						<div class="row">
+							<label for="boxLastName" class="col-sm-2 control-label">姓
+								<span class="warning" id="warn_boxLastName">*</span>
+							</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="boxLastName"
+									value="${shaShippingAddress.familyName}" placeholder="姓氏">
+							</div>
+						</div>
+
+						<div class="row">
+							<label for="boxFirstName" class="col-sm-2 control-label">名
+								<span class="warning" id="warn_boxFirstName">*</span>
+							</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="boxFirstName"
+									value="${shaShippingAddress.givenName}" placeholder="名字">
+							</div>
+						</div>
+
+						<div class="row">
+							<label for="boxPhone" class="col-sm-2 control-label">电话 <span
+								class="warning" id="warn_boxPhone">*</span>
+							</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="boxPhone"
+									value="${shaShippingAddress.contactPhoneNo}" placeholder="电话">
+							</div>
+						</div>
+
+						<div class="row">
+							<label for="boxEmail" class="col-sm-2 control-label">邮箱 <span
+								class="warning" id="warn_boxEmail">*</span>
+							</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="boxEmail"
+									value="${shaShippingAddress.email}" placeholder="邮箱">
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-6">
+								<label for="boxCountry" class="col-sm-4 control-label">国家
+									<span class="warning" id="warn_boxCountry">*</span>
+								</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" id="boxCountry"
+										value="${shaShippingAddress.countryName}" placeholder="国家">
+									</textarea>
+								</div>
+							</div>
+
+							<div class="col-sm-6">
+								<label for="boxCountryCode" class="col-sm-6 control-label">国家编码
+									<span class="warning" id="warn_boxCountryCode">*</span>
+								</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="boxCountryCode"
+										value="${shaShippingAddress.countryIsoCd}" placeholder="国家编码">
+									</textarea>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-6">
+								<label for="boxProvince" class="col-sm-4 control-label">省份
+									<span class="warning" id="warn_boxProvince">*</span>
+								</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" id="boxProvince"
+										value="${shaShippingAddress.stateOrProvinceName}" placeholder="省份">
+									</textarea>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<label for="boxProvinceCode" class="col-sm-6 control-label">省份编码
+									<span class="warning" id="warn_boxProvinceCode">*</span>
+								</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="boxProvinceCode"
+										value="${shaShippingAddress.stateOrProvinceCd}" placeholder="省份编码">
+									</textarea>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<label for="boxCity" class="col-sm-2 control-label">城市 <span
+								class="warning" id="warn_boxCity">*</span>
+							</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="boxCity"
+									value="${shaShippingAddress.cityName}" placeholder="城市">
+							</div>
+						</div>
+
+						<div class="row">
+							<label for="boxDetailAddress" class="col-sm-3 control-label">详细地址
+								<span class="warning" id="warn_boxDetailAddress">*</span>
+							</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="boxDetailAddress"
+									value="${shaShippingAddress.addressLine1}" placeholder="详细地址">
+							</div>
+						</div>
+
+						<div class="row">
+							<label for="boxZipCode" class="col-sm-2 control-label">邮编
+								<span class="warning" id="warn_boxZipCode">*</span>
+							</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="boxZipCode"
+									value="${shaShippingAddress.postalCd}" placeholder="邮编">
+							</div>
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" id="boxConfirmBtn" class="btn btn-primary">保存</button>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
 
 		
 
@@ -209,6 +338,75 @@ div#orderDetails {
 		
 		$(top.hangge());		
 
+		var ele = [ 'familyName', 'givenName', 'contactPhoneNo', 'email',
+					'countryName', 'stateOrProvinceName', 'cityName',
+					'addressLine1', 'postalCd', 'countryIsoCd', 'stateOrProvinceCd' ];
+		var origin_ele = [ 'boxLastName', 'boxFirstName', 'boxPhone', 'boxEmail',
+				'boxCountry', 'boxProvince', 'boxCity', 'boxDetailAddress',
+				'boxZipCode', 'boxCountryCode', 'boxProvinceCode' ];
+		//Box confirm button
+		$("#boxConfirmBtn")
+				.on(
+						'click',
+						function() {
+							var address = {};
+
+							var isIncomplete = false;// Mark if some of the inputs are not filled.
+
+							$.each(ele, function(index, value) {
+								var eleId = $('#' + origin_ele[index]);
+								var tmp = eleId.val();
+								//console.log(tmp);
+								if (tmp == "" || tmp == undefined || tmp == null) {
+									shake(origin_ele[index]);
+									isIncomplete = true;
+								} else {
+									
+									address[value] = tmp;//add value to dict if the value is valid
+								}
+							});
+
+							if (isIncomplete === false) {
+								$
+										.each(
+												ele,
+												function(index, value) {
+													$('#'+value).text(address[value]);
+													//console.log(value+' '+address[value]);
+												});
+								$.ajax({
+									type : "post",
+						            url : "orders/AddressModify",
+						            dataType : "json",
+						            data : JSON.stringify({
+						                shaShippingAddress : address
+						            }),
+						            success : function(msg) {
+						                console.log(msg);
+						                
+						            },
+						            error : function(msg) {
+						                console.log(msg);
+						            }
+								});
+								$('#operateAddressModalBox').modal('hide');
+							}
+						});
+		
+		function getAddress() {
+            var address = {}
+            $.each(origin_ele, function(index, value) {
+                address[value] = $('input#'+value).val();
+            });
+            address['saoId'] = parseInt(salesOrderId);
+            return address;
+        }
+		function shake(id) {
+			$('#' + id).effect('shake', {
+				distance : 5
+			});
+		}
+		
 		//修改
 		function edit(Id){
 			 top.jzts();
@@ -240,25 +438,12 @@ div#orderDetails {
 				}
 				diag.close();
 			 };
-			 diag.show();
+			 //diag.show();
 		}
 		
-		
+		var salesOrderId = ${saoSalesOrder.saoId};
 		$('#submitPayment').on('click', function() {
-			$.ajax({
-				type : "post",
-				url : '<%=basePath%>'+"orders/addOriginalOrderAndAddressAndItems",
-				dataType : "json",
-				data : JSON.stringify({
-					saoId : '${saoSalesOrder.saoId}',
-				}),
-				success : function(msg) {
-					console.log(msg);
-				},
-				error : function(msg) {
-					console.log(msg);
-				}
-			});
+			window.location.replace("orders/goPayForSalesOrder?saoId="+salesOrderId);
 		});
 		
 		function getFreCompany(){
@@ -267,15 +452,12 @@ div#orderDetails {
 			return val;	
 		}
 		$('input:radio[name="sendMethod"]').on('click', function() {
+			
 			$.ajax({
 				type : "post",
-				url: '<%=basePath%>'+"orders/calculateFreight",
-				dataType : "json",
-				data : JSON.stringify({
-					saoId : '${saoSalesOrder.saoId}',
-					freCompany: getFreCompany()
-				}),
+				url: "orders/calculateFreight?saoId="+salesOrderId+"&freCompany="+getFreCompany(),
 				success : function(data) {
+					$('#frePrice').text(data);
 					console.log(data);
 				},
 				error : function(data) {

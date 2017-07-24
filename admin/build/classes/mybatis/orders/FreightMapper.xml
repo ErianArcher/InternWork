@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FreightMapper">
+
+	<resultMap id="FreiMap" type="com.admin.entity.orders.Fretemp">
+		<id column="FRE_ID" property="freId" jdbcType="INTEGER" />
+		<id column="FRE_COMPANY" property="freCompany" jdbcType="VARCHAR" />
+		<id column="WAR_ID" property="warId" jdbcType="INTEGER" />
+		<id column="DES_COUNTRY" property="desCountry" jdbcType="VARCHAR" />
+		<id column="DES_COUNTRY_ID" property="desCountryId" jdbcType="VARCHAR" />
+		<id column="DES_PROVINCE" property="desProvince" jdbcType="VARCHAR" />
+		<id column="DES_PROVINCE_ID" property="desProvinceId" jdbcType="VARCHAR" />
+		<id column="FRE_FEE" property="freFee" jdbcType="DECIMAL" />
+		<id column="STS_CD" property="stsCd" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- 列表 -->
+	<select id="getFreightList" parameterType="com.admin.entity.orders.Fretemp" resultMap="FreiMap">
+		select 
+				*
+		from fre_freight_template 
+		where
+			FRE_ID = #{freId}
+		and STS_CD	= 'A'
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="insertFreightTemplete" parameterType="com.admin.entity.orders.Fretemp" keyProperty="freId">
+		insert into fre_freight_template (
+			FRE_COMPANY,
+			WAR_ID
+			DES_COUNTRY,
+			DES_COUNTRY_ID,
+			DES_PROVINCE,
+			DES_PROVINCE_ID,
+			FRE_FEE,
+			STS_CD
+		) values (
+			#{freCompany},
+			#{warId},
+			#{desCountry},
+			#{desCountryId},
+			#{desProvince},
+			#{desProvinceId},
+			#{freFee},
+			#{stsCd}
+		)
+	</insert>
+
+	<!-- 修改 -->
+	<update id="updateFreight" parameterType="com.admin.entity.orders.Fretemp">
+		update  fre_freight_template
+			set FRE_COMPANY			= #{freCompany},
+			    WAR_ID		        = #{warId},
+				DES_COUNTRY 		= #{desCountry},
+				DES_COUNTRY_ID			= #{desCountryId},
+				DES_PROVINCE 		= #{desProvince},
+				DES_PROVINCE_ID 			= #{desProvinceId},
+				FRE_FEE			    = #{freFee},
+				STS_CD	 			= #{stsCd}
+			where 
+				FRE_ID = #{freId}
+	</update>
+	
+	<!-- 删除 -->
+	<update id="deleteFreight" parameterType="com.admin.entity.orders.Fretemp">
+		update  fre_freight_template
+			set 
+				STS_CD	= 'D'
+			where 
+				FRE_ID = #{freId}
+	</update>
+	
+	<!-- 通过DES_PROVINCE_ID省编号获取数据 -->
+	<select id="findFreightByProvinceId" parameterType="com.admin.entity.orders.Fretemp" resultMap="FreiMap">
+		select 
+			*
+		from 
+			fre_freight_template
+		where 
+			DES_PROVINCE_ID = #{desProvinceId}
+		and STS_CD	= 'A'
+	</select>
+	
+	<!-- 通过SHIPPING_METHOD快递方式和DES_PROVINCE_ID省编号获取数据FRE_FEE单位运费 -->
+	<select id="findFreByShipProid" parameterType="com.admin.entity.orders.Fretemp" resultMap="FreiMap">
+		select 
+			*
+		from 
+			fre_freight_template
+		where 
+			FRE_COMPANY = #{freCompany}
+		and DES_PROVINCE_ID = #{desProvinceId}
+		and STS_CD	= 'A'
+	</select>
+</mapper>

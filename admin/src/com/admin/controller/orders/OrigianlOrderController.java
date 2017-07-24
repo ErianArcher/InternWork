@@ -372,6 +372,7 @@ public class OrigianlOrderController extends BaseController{
     	BigDecimal saoSalesPrice=saoSalesOrders.getProductAmount();
     	BigDecimal allPrice=freightCost.add(saoSalesPrice);
     	mv.addObject("allPrice", allPrice);
+    	mv.addObject("saoId",saoId);
     	/*
     	 * 之前前台获取到了运费和商品总价，计算支付金额，与这个allPrice比对
     	 * 若不同，那说明计算有误（注意精度的处理）。前端禁止支付。
@@ -394,7 +395,7 @@ public class OrigianlOrderController extends BaseController{
     	PageData pageData = this.getPageData();
     	int saoId=Integer.valueOf(pageData.getString("saoId"));
     	BigDecimal allPrice=new BigDecimal(pageData.getString("allPrice"));
-    	int payMethod=Integer.valueOf(pageData.getString("payMethod"));
+    	//int payMethod=Integer.valueOf(pageData.getString("payMethod")); 自己从数据库获取啦
     	//调用钱包接口减钱
     	SaoSalesOrder saoSalesOrder=new SaoSalesOrder();
     	saoSalesOrder=saoSalesOrderService.findSaoSalesOrderById(saoId);
@@ -512,7 +513,7 @@ public class OrigianlOrderController extends BaseController{
     		}
     		BigDecimal unitfre = unitFreEntity.getFreFee();//查询，得到单元运费
     		
-    		double unitfre1 = unitfre.doubleValue();
+    		double unitfre1 = 1.0;//unitfre.doubleValue();
     		double freight = qty1 * unitfre1;//计算=单元运费*商品数量
     		BigDecimal fre = new BigDecimal(freight);
     		SaoSalesOrder freSave = new SaoSalesOrder();
