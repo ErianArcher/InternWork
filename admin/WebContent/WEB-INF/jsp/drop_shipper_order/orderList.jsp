@@ -51,7 +51,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</tr>
 					</thead>
 					<tbody>
-						<c:choose>
 						<c:when test="${not empty saoSalesOrderListAll}">
 						<c:forEach items="${saoSalesOrderListAll}" var="saoSaleOrder" varStatus="vs">
 						<tr>
@@ -60,25 +59,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td><label>${saoSaleOrder.productAmount}</label></td>
 							<td><label>${saoSaleOrder.customerRemark}</label></td>
 							<td>
+								<c:choose>
 								<!-- 点开订单详情的按钮 -->
-								<c:if test="${not empty saoSaleOrder.paymentDate}">
-									<label>已支付</label>
-								</c:if>
-								
-							</td>
+								<c:when test="${saoSaleOrder.stsCd != '1'}">
+								<label>已支付</label>
+							</c:when>
+							<c:otherwise>
+							<button type="button" class="btn btn-default" onclick="detailButton(${saoSaleOrder.saoId})"/>
+						</c:otherwise>
+					</td>
+				</tr>
+			</c:forEach>
+		</c:when>
+		<c:otherwise>
+		
+	</c:otherwise>
 
-							</tr>
-						</c:forEach>
-					</c:when>
-					<c:otherwise>
-									<button type="button" class="btn btn-default" onclick="detailButton(${saoSaleOrder.saoId})">/button>
-								</c:otherwise>
-					
-				</c:choose>
-			</tbody>
-		</table>
+</c:choose>
+</tbody>
+</table>
 
-	</div>
+</div>
 </div>
 
 </body>
