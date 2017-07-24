@@ -294,7 +294,7 @@ div#commodityEntry {
 
 	var ele = [ 'familyName', 'givenName', 'contactPhoneNo', 'email',
 				'countryName', 'stateOrProvinceName', 'cityName',
-				'addressLine', 'postalCd', 'countryIsoCd', 'stateOrProvinceCd' ];
+				'addressLine1', 'postalCd', 'countryIsoCd', 'stateOrProvinceCd' ];
 	var origin_ele = [ 'boxLastName', 'boxFirstName', 'boxPhone', 'boxEmail',
 			'boxCountry', 'boxProvince', 'boxCity', 'boxDetailAddress',
 			'boxZipCode', 'boxCountryCode', 'boxProvinceCode' ];
@@ -439,7 +439,8 @@ div#commodityEntry {
 		for (var i = 1; i <= commodityCount; i++) {
 			json.push({
 				skuNO : $('#commoditySKU' + i).text(),
-				qty : $('#commodityQuantity' + i).text()
+				qty : parseInt($('#commodityQuantity' + i).text()),
+				salesPrice : 2
 			});
 			//console.log({commoditySKU:$('#commoditySKU'+i).text(), commodityQuantity:$('#commodityQuantity'+i).text()});
 		}
@@ -448,7 +449,7 @@ div#commodityEntry {
 	}
 	$('#submitOrder').on('click', function() {
 		var orderData = JSON.stringify({
-			originalOrders: {strId:"12654388", orderId:"7898465", createdBy:"Neusoft"},
+			originalOrders: {strId:12654, orderId:"7898465", createdBy:"Neusoft"},
 			shaShippingAddress : getAddress(),
 			orderItems : getCommodities()
 		});
@@ -456,13 +457,14 @@ div#commodityEntry {
 		$.ajax({
 			type : "post",
 			url : '<%=basePath%>'+"orders/addOriginalOrderAndAddressAndItems",
-			dataType : "json",
+			dataType : "text",
 			data : orderData,
 			beforeSend : function(req) {
 	            req.setRequestHeader('Content-Type', 'application/json');  ///加这一行解决问题
 	        },
 			success : function(msg) {
-				windows.location.href='<%=basePath%>'+"orders/showSaoSalesOrderItems";
+				console.log(msg);
+				window.location.replace("orders/showSaoSalesOrderItems");
 			},
 			error : function(msg) {
 				console.log(msg);

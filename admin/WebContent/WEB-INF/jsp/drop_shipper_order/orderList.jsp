@@ -52,8 +52,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</thead>
 					<tbody>
 						<c:choose>
-						<c:when test="${not empty saoSaleOrderListAll}">
-						<c:forEach items="${saoSaleOrderListAll}" var="saoSaleOrder" varStatus="vs">
+						<c:when test="${not empty saoSalesOrderListAll}">
+						<c:forEach items="${saoSalesOrderListAll}" var="saoSaleOrder" varStatus="vs">
 						<tr>
 							<td><label>${saoSaleOrder.saoId}</label></td>
 							<td><label>${saoSaleOrder.lastUpdateDate}</label></td>
@@ -64,15 +64,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<c:if test="${not empty saoSaleOrder.paymentDate}">
 									<label>已支付</label>
 								</c:if>
-								<c:otherwise>
-									<button type="button" class="btn btn-default" onclick="detailButton(${saoSaleOrder.saoId})">/button>
-								</c:otherwise>
-
+								
 							</td>
 
 							</tr>
 						</c:forEach>
 					</c:when>
+					<c:otherwise>
+									<button type="button" class="btn btn-default" onclick="detailButton(${saoSaleOrder.saoId})">/button>
+								</c:otherwise>
+					
 				</c:choose>
 			</tbody>
 		</table>
