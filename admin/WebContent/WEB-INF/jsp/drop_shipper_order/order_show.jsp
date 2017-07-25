@@ -25,6 +25,9 @@
 <link
 	href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet">
+	
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
 
 <style type="text/css">
 #send div.sendMethod {
@@ -377,10 +380,11 @@ div#orderDetails {
 								$.ajax({
 									type : "post",
 						            url : "orders/AddressModify",
-						            dataType : "json",
-						            data : JSON.stringify({
-						                shaShippingAddress : address
-						            }),
+						            dataType : "text",
+						            data : JSON.stringify(getAddress()),
+						            beforeSend : function(req) {
+							            req.setRequestHeader('Content-Type', 'application/json');  ///加这一行解决问题
+							        },
 						            success : function(msg) {
 						                console.log(msg);
 						                
@@ -395,10 +399,11 @@ div#orderDetails {
 		
 		function getAddress() {
             var address = {}
-            $.each(origin_ele, function(index, value) {
-                address[value] = $('input#'+value).val();
+            $.each(ele, function(index, value) {
+                address[value] = $('input#'+origin_ele[index]).val();
             });
             address['saoId'] = parseInt(salesOrderId);
+            console.log(address);
             return address;
         }
 		function shake(id) {
