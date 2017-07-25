@@ -130,7 +130,9 @@ div#orderDetails {
 								<!--from tupian to shuliang -->
 			
 										<td>
-										<img src="http://imgsrc.baidu.com/baike/pic/item/6a63f6246b600c338f25aa7f1a4c510fd9f9a12c.jpg" ></a>
+										
+										<img style="width:50px; height:50px" 
+										src="http://dailycoffeenews.com/wp-content/uploads/2012/06/coffee-cup.jpeg">
 										</td>							
 										<td>${saoSalesOrderItems.proId}</td>
 										<td>${saoSalesOrderItems.price}</td>

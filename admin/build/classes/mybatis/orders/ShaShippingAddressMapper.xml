@@ -120,9 +120,9 @@
 			<if test="stateOrProvinceName!=null">STATE_OR_PROVINCE_NAME=#{stateOrProvinceName},</if>
 			<if test="stateOrProvinceCd!=null">STATE_OR_PROVINCE_CD=#{stateOrProvinceCd},</if>
 			<if test="cityName!=null">CITY_NAME=#{cityName},</if>
-			<if test="addressLine1!=null">ADDRESSLINE1=#{addressLine1},</if>
-			<if test="addressLine2!=null">ADDRESSLINE2=#{addressLine2},</if>
-			<if test="addressLine3!=null">ADDRESSLINE3=#{addressLine3},</if>
+			<if test="addressLine1!=null">ADDRESS_LINE1=#{addressLine1},</if>
+			<if test="addressLine2!=null">ADDRESS_LINE2=#{addressLine2},</if>
+			<if test="addressLine3!=null">ADDRESS_LINE3=#{addressLine3},</if>
 			<if test="postalCd!=null">POSTAL_CD=#{postalCd},</if>
 			<if test="contactPhoneNo!=null">CONTACT_PHONE_NO=#{contactPhoneNo},</if>
 			<if test="email!=null">EMAIL=#{email},</if>
